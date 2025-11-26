@@ -35,28 +35,36 @@
             .tab-content { display: none; animation: fadeIn 0.3s; }
             .tab-content.active { display: block; }
             @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+            
             .card-grid {
-                display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;
+                display: grid; 
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+                gap: 20px;
+                justify-content: center; 
             }
+            
             .card {
                 background-color: var(--card-bg); border: 1px solid var(--border);
                 border-radius: 10px; padding: 20px; transition: transform 0.2s;
             }
             .card:hover { transform: translateY(-3px); border-color: #555; }
             .card-meta { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.75rem; }
+            
             .badge { background: #222; color: var(--accent); padding: 3px 8px; border-radius: 4px; font-weight: bold; border: 1px solid #333; }
-            .paper-badge { color: #eab308; }
+            
+            .paper-badge { color: var(--accent); } 
+            
             .date { color: #666; font-family: monospace; }
             .card-title { display: block; font-size: 1.1rem; font-weight: 600; color: #fff; text-decoration: none; margin-bottom: 10px; word-break: keep-all; }
             .card-title:hover { color: var(--accent); text-decoration: underline; }
             
-            /* 🔴 아래 부분이 수정되었습니다: line-clamp 속성 추가 */
             .card-summary { font-size: 0.9rem; color: var(--text-sub); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical; }
             
             .link-card { text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 120px; text-decoration: none; align-items: center; }
             .link-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 5px; color: #fff; }
             .link-desc { font-size: 0.85rem; color: var(--text-sub); }
-            .wiki-paper {
+            
+            .knowledge-paper {
                 background-color: #1a1a1a;
                 border: 1px solid var(--border);
                 border-radius: 8px;
@@ -64,24 +72,30 @@
                 min-height: 400px;
                 color: #ddd;
             }
-            .wiki-paper h3 { border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-top: 0; }
-            .wiki-paper ul { padding-left: 20px; color: #bbb; }
-            .wiki-paper li { margin-bottom: 8px; }
+            .knowledge-paper h3 { border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-top: 0; }
+            .knowledge-paper ul { padding-left: 20px; color: #bbb; }
+            .knowledge-paper li { margin-bottom: 8px; }
+            
             details { margin-top: 15px; border-top: 1px solid #333; padding-top: 10px; }
             summary { cursor: pointer; color: #777; font-size: 0.85rem; }
             .abstract-text { margin-top: 10px; font-size: 0.9rem; color: #bbb; text-align: justify; line-height: 1.6; }
             footer { margin-top: 50px; text-align: center; color: #444; font-size: 0.8rem; border-top: 1px solid #222; padding-top: 20px; }
+
+            @media (max-width: 480px) {
+                body { padding: 15px; }
+                .card-grid { grid-template-columns: 1fr; } 
+            }
         </style>
     </head>
     <body>
         <div class="container">
             <header>
                 <h1>AI 정보 (TEST MODE)</h1>
-                <div class="timestamp">업데이트: 2025-11-27 02:23:49</div>
+                <div class="timestamp">업데이트: 2025-11-27 02:32:49</div>
             </header>
 
             <nav class="tabs">
-                <button class="tab-btn" onclick="openTab('Wiki')">위키</button>
+                <button class="tab-btn" onclick="openTab('Knowledge')">지식</button>
                 <button class="tab-btn active" onclick="openTab('News')">뉴스</button>
                 <button class="tab-btn" onclick="openTab('Papers')">논문</button>
                 <button class="tab-btn" onclick="openTab('Labs')">연구소</button>
@@ -94,7 +108,7 @@
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">Test News 1</span>
-                        <span class="date">2025-11-27 02:23</span>
+                        <span class="date">2025-11-27 02:32</span>
                     </div>
                     <a href="#" class="card-title">[News] 테스트 뉴스 제목입니다 (1)</a>
                     <div class="card-summary">이것은 UI 테스트를 위한 가짜 요약 내용입니다. 이것은 UI 테스트를 위한 가짜 요약 내용입니다.</div>
@@ -103,7 +117,7 @@
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">Test News 2</span>
-                        <span class="date">2025-11-27 02:23</span>
+                        <span class="date">2025-11-27 02:32</span>
                     </div>
                     <a href="#" class="card-title">[News] 테스트 뉴스 제목입니다 (2)</a>
                     <div class="card-summary">이것은 UI 테스트를 위한 가짜 요약 내용입니다. 이것은 UI 테스트를 위한 가짜 요약 내용입니다.</div>
@@ -112,7 +126,7 @@
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">Test News 3</span>
-                        <span class="date">2025-11-27 02:23</span>
+                        <span class="date">2025-11-27 02:32</span>
                     </div>
                     <a href="#" class="card-title">[News] 테스트 뉴스 제목입니다 (3)</a>
                     <div class="card-summary">이것은 UI 테스트를 위한 가짜 요약 내용입니다. 이것은 UI 테스트를 위한 가짜 요약 내용입니다.</div>
@@ -121,7 +135,7 @@
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">Test News 4</span>
-                        <span class="date">2025-11-27 02:23</span>
+                        <span class="date">2025-11-27 02:32</span>
                     </div>
                     <a href="#" class="card-title">[News] 테스트 뉴스 제목입니다 (4)</a>
                     <div class="card-summary">이것은 UI 테스트를 위한 가짜 요약 내용입니다. 이것은 UI 테스트를 위한 가짜 요약 내용입니다.</div>
@@ -130,7 +144,7 @@
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">Test News 5</span>
-                        <span class="date">2025-11-27 02:23</span>
+                        <span class="date">2025-11-27 02:32</span>
                     </div>
                     <a href="#" class="card-title">[News] 테스트 뉴스 제목입니다 (5)</a>
                     <div class="card-summary">이것은 UI 테스트를 위한 가짜 요약 내용입니다. 이것은 UI 테스트를 위한 가짜 요약 내용입니다.</div>
@@ -139,7 +153,7 @@
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">Test News 6</span>
-                        <span class="date">2025-11-27 02:23</span>
+                        <span class="date">2025-11-27 02:32</span>
                     </div>
                     <a href="#" class="card-title">[News] 테스트 뉴스 제목입니다 (6)</a>
                     <div class="card-summary">이것은 UI 테스트를 위한 가짜 요약 내용입니다. 이것은 UI 테스트를 위한 가짜 요약 내용입니다.</div>
@@ -148,7 +162,7 @@
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">Test Lab 1</span>
-                        <span class="date">2025-11-27 02:23</span>
+                        <span class="date">2025-11-27 02:32</span>
                     </div>
                     <a href="#" class="card-title">[Labs] 테스트 뉴스 제목입니다 (1)</a>
                     <div class="card-summary">이것은 UI 테스트를 위한 가짜 요약 내용입니다. 이것은 UI 테스트를 위한 가짜 요약 내용입니다.</div>
@@ -157,7 +171,7 @@
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">Test Lab 2</span>
-                        <span class="date">2025-11-27 02:23</span>
+                        <span class="date">2025-11-27 02:32</span>
                     </div>
                     <a href="#" class="card-title">[Labs] 테스트 뉴스 제목입니다 (2)</a>
                     <div class="card-summary">이것은 UI 테스트를 위한 가짜 요약 내용입니다. 이것은 UI 테스트를 위한 가짜 요약 내용입니다.</div>
@@ -166,7 +180,7 @@
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">Test Lab 3</span>
-                        <span class="date">2025-11-27 02:23</span>
+                        <span class="date">2025-11-27 02:32</span>
                     </div>
                     <a href="#" class="card-title">[Labs] 테스트 뉴스 제목입니다 (3)</a>
                     <div class="card-summary">이것은 UI 테스트를 위한 가짜 요약 내용입니다. 이것은 UI 테스트를 위한 가짜 요약 내용입니다.</div>
@@ -175,7 +189,7 @@
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">Test Lab 4</span>
-                        <span class="date">2025-11-27 02:23</span>
+                        <span class="date">2025-11-27 02:32</span>
                     </div>
                     <a href="#" class="card-title">[Labs] 테스트 뉴스 제목입니다 (4)</a>
                     <div class="card-summary">이것은 UI 테스트를 위한 가짜 요약 내용입니다. 이것은 UI 테스트를 위한 가짜 요약 내용입니다.</div>
@@ -184,7 +198,7 @@
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">Test Lab 5</span>
-                        <span class="date">2025-11-27 02:23</span>
+                        <span class="date">2025-11-27 02:32</span>
                     </div>
                     <a href="#" class="card-title">[Labs] 테스트 뉴스 제목입니다 (5)</a>
                     <div class="card-summary">이것은 UI 테스트를 위한 가짜 요약 내용입니다. 이것은 UI 테스트를 위한 가짜 요약 내용입니다.</div>
@@ -193,7 +207,7 @@
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">Test Lab 6</span>
-                        <span class="date">2025-11-27 02:23</span>
+                        <span class="date">2025-11-27 02:32</span>
                     </div>
                     <a href="#" class="card-title">[Labs] 테스트 뉴스 제목입니다 (6)</a>
                     <div class="card-summary">이것은 UI 테스트를 위한 가짜 요약 내용입니다. 이것은 UI 테스트를 위한 가짜 요약 내용입니다.</div>
@@ -303,10 +317,10 @@
                 </details>
             </div>
             </div></div>
-    <div id="Wiki" class="tab-content">
-        <div class="wiki-paper">
+    <div id="Knowledge" class="tab-content">
+        <div class="knowledge-paper">
             
-<h3>테스트</h3>
+<h3>지식 저장소</h3>
 <p>현재 <b>test</b> 상태입니다.</p>
 <ul>
     <li>test</li>
@@ -355,7 +369,7 @@
             </main>
 
             <footer>
-                <p>test</p>
+                <p>Generated by AI Info Collector</p>
             </footer>
         </div>
 
@@ -374,12 +388,13 @@
                 for (i = 0; i < btns.length; i++) {
                     btns[i].classList.remove("active");
                     var txt = btns[i].innerText;
+                    
                     if (
                         (tabName === 'News' && txt.includes('뉴스')) ||
                         (tabName === 'Papers' && txt.includes('논문')) ||
                         (tabName === 'Labs' && txt.includes('연구소')) ||
                         (tabName === 'Conferences' && txt.includes('학회')) ||
-                        (tabName === 'Wiki' && txt.includes('위키')) ||
+                        (tabName === 'Knowledge' && txt.includes('지식')) ||
                         (tabName === 'Others' && txt.includes('기타'))
                     ) {
                         btns[i].classList.add("active");
