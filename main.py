@@ -14,6 +14,8 @@ MODEL_NAME = 'gemini-2.0-flash-lite'
 
 if GOOGLE_API_KEY:
     genai.configure(api_key=GOOGLE_API_KEY)
+else:
+    print("Warning: GOOGLE_API_KEY not found. Translation will be skipped.")
 
 RSS_SOURCES = {
     "Labs": {
@@ -110,12 +112,13 @@ def collect_rss_data():
             limit = MAX_NEWS_ITEMS
         else:
             limit = MAX_LABS_ITEMS
+            
         for name, url in feeds.items():
             feed = get_feed_data(url)
             if feed and feed.entries:
                 for entry in feed.entries[:limit]:
                     published_parsed = None
-                    date_str = "Recent"
+                    date_str = ""
                     
                     if hasattr(entry, 'published_parsed') and entry.published_parsed:
                         published_parsed = entry.published_parsed
@@ -124,9 +127,10 @@ def collect_rss_data():
                     
                     if published_parsed:
                         dt = datetime.datetime.fromtimestamp(mktime(published_parsed))
-                        date_str = dt.strftime("%Y-%m-%d %H:%M")
+                        date_str = dt.strftime("%Y-%m-%d")
                     else:
                         published_parsed = time.localtime(0)
+                        date_str = "Recent"
 
                     summary = clean_html(getattr(entry, 'summary', entry.title))
                     
@@ -184,7 +188,18 @@ def translate_with_gemini(text):
 
     try:
         model = genai.GenerativeModel(MODEL_NAME)
-        prompt = f"Translate the following text into Korean naturally, keeping technical AI terms (like LLM, Transformer) intact:\n\n{text}"
+        prompt = f"""
+        Translate the following text into Korean perfectly.
+        
+        Rules:
+        1. Keep technical AI terms in English (e.g., LLM, Transformer, Diffusion, RAG, Zero-shot).
+        2. Make the Korean sentence sound natural and professional.
+        3. Do NOT provide explanations, just the translated text.
+        4. If the text is a title, keep it concise.
+        
+        Text to translate:
+        {text}
+        """
         
         response = model.generate_content(prompt)
         return response.text.strip()
@@ -197,14 +212,14 @@ def process_translation(data_list, fields):
     if not GOOGLE_API_KEY:
         return
 
-    print(f"Translating {len(data_list)} items... (It may take a while)")
+    print(f"Translating {len(data_list)} items... (Please wait)")
     for i, item in enumerate(data_list):
         for field in fields:
             if field in item:
                 original = item[field]
                 translated = translate_with_gemini(original)
                 item[field] = translated
-                time.sleep(2)
+                time.sleep(4)
 
 def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content):
     now_kst = datetime.datetime.now(pytz.timezone('Asia/Seoul')).strftime('%Y-%m-%d %H:%M:%S')
@@ -238,7 +253,7 @@ def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content
                 <a href="{paper['url']}" target="_blank" class="card-title">{paper['title']}</a>
                 <div class="card-author">{paper['authors']}</div>
                 <details>
-                    <summary>Abstract (Translated)</summary>
+                    <summary>요약 (Abstract)</summary>
                     <div class="abstract-text">{paper['abstract']}</div>
                 </details>
             </div>
@@ -281,86 +296,94 @@ def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>AI Information</title>
+        <title>Daily AI Insights</title>
         <style>
             :root {{
                 --bg: #111111;
-                --card-bg: #1c1c1c;
-                --text-main: #f0f0f0;
-                --text-sub: #888888;
-                --accent: #ffffff; 
+                --card-bg: #1e1e1e;
+                --text-main: #e0e0e0;
+                --text-sub: #9e9e9e;
+                --accent: #4dabf7; 
                 --border: #333;
             }}
             body {{
                 background-color: var(--bg);
                 color: var(--text-main);
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
                 margin: 0; padding: 20px;
                 line-height: 1.6;
             }}
             .container {{ max-width: 1200px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }}
             
-            header {{ text-align: center; margin-bottom: 20px; }}
-            h1 {{ margin: 0; font-weight: 700; font-size: 2rem; }}
-            .timestamp {{ color: var(--text-sub); font-size: 0.8rem; font-family: monospace; margin-top: 10px; }}
+            header {{ text-align: center; margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 20px; }}
+            h1 {{ margin: 0; font-weight: 800; font-size: 2.2rem; letter-spacing: -1px; background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }}
+            .timestamp {{ color: #555; font-size: 0.85rem; font-family: monospace; margin-top: 8px; }}
             
             .tabs {{ 
-                display: flex; gap: 12px; margin-bottom: 30px; border-bottom: 1px solid var(--border);
-                padding-bottom: 15px; overflow-x: auto; white-space: nowrap; justify-content: center;
-                -webkit-overflow-scrolling: touch; scrollbar-width: none;
+                display: flex; gap: 10px; margin-bottom: 25px; 
+                padding-bottom: 10px; overflow-x: auto; white-space: nowrap; justify-content: center;
             }}
             .tabs::-webkit-scrollbar {{ display: none; }}
 
             .tab-btn {{
-                background: transparent; border: 1px solid var(--border); color: var(--text-sub);
-                padding: 10px 20px; cursor: pointer; border-radius: 8px; font-weight: 600; font-size: 0.95rem;
-                transition: all 0.2s; flex: 0 0 auto; 
+                background: transparent; border: 1px solid #444; color: var(--text-sub);
+                padding: 8px 16px; cursor: pointer; border-radius: 20px; font-weight: 600; font-size: 0.9rem;
+                transition: all 0.2s; flex: 0 0 auto;
             }}
             .tab-btn:hover {{ border-color: var(--accent); color: #fff; }}
             .tab-btn.active {{ background: var(--accent); color: #000; border-color: var(--accent); }}
             
-            .tab-content {{ display: none; animation: fadeIn 0.3s; flex: 1; }}
+            .tab-content {{ display: none; animation: fadeIn 0.4s; flex: 1; }}
             .tab-content.active {{ display: block; }}
-            @keyframes fadeIn {{ from {{ opacity: 0; transform: translateY(5px); }} to {{ opacity: 1; transform: translateY(0); }} }}
+            @keyframes fadeIn {{ from {{ opacity: 0; transform: translateY(10px); }} to {{ opacity: 1; transform: translateY(0); }} }}
             
             .card-grid {{
-                display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+                display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
                 gap: 20px; justify-content: center; 
             }}
             
             .card {{
                 background-color: var(--card-bg); border: 1px solid var(--border);
-                border-radius: 10px; padding: 20px; transition: transform 0.2s;
+                border-radius: 12px; padding: 24px; transition: transform 0.2s, box-shadow 0.2s;
                 display: flex; flex-direction: column;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             }}
-            .card:hover {{ transform: translateY(-3px); border-color: #555; }}
-            .card-meta {{ display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.75rem; }}
+            .card:hover {{ transform: translateY(-3px); border-color: #555; box-shadow: 0 8px 12px rgba(0,0,0,0.2); }}
+            .card-meta {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.8rem; }}
             
-            .badge {{ background: #222; color: var(--accent); padding: 3px 8px; border-radius: 4px; font-weight: bold; border: 1px solid #333; }}
-            .paper-badge {{ color: var(--accent); }} 
+            .badge {{ background: #2a2a2a; color: #ccc; padding: 4px 10px; border-radius: 6px; font-weight: 600; border: 1px solid #333; }}
+            .paper-badge {{ color: var(--accent); border-color: #2a3a4a; background: #1a202a; }} 
             
             .date {{ color: #666; font-family: monospace; }}
-            .card-title {{ display: block; font-size: 1.1rem; font-weight: 600; color: #fff; text-decoration: none; margin-bottom: 5px; word-break: keep-all; flex-grow: 1; }}
+            
+            .card-title {{ 
+                display: block; font-size: 1.15rem; font-weight: 700; color: #fff; 
+                text-decoration: none; margin-bottom: 8px; 
+                line-height: 1.4; 
+                word-break: keep-all; 
+                word-wrap: break-word;
+                flex-grow: 1; 
+            }}
             .card-title:hover {{ color: var(--accent); text-decoration: underline; }}
-            .card-author {{ font-size: 0.85rem; color: #777; margin-bottom: 8px; font-style: italic; }}
+            .card-author {{ font-size: 0.9rem; color: #777; margin-bottom: 12px; font-style: italic; }}
             
-            .link-card {{ text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 120px; text-decoration: none; align-items: center; }}
-            .link-title {{ font-size: 1.3rem; font-weight: bold; margin-bottom: 5px; color: #fff; }}
-            .link-desc {{ font-size: 0.85rem; color: var(--text-sub); }}
+            .link-card {{ text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 140px; text-decoration: none; align-items: center; }}
+            .link-title {{ font-size: 1.4rem; font-weight: bold; margin-bottom: 6px; color: #fff; }}
+            .link-desc {{ font-size: 0.9rem; color: var(--text-sub); }}
             
-            .knowledge-paper {{ background-color: #1a1a1a; border: 1px solid var(--border); border-radius: 8px; padding: 40px; min-height: 400px; color: #ddd; }}
-            .knowledge-paper h3 {{ border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-top: 0; }}
+            .knowledge-paper {{ background-color: #1a1a1a; border: 1px solid var(--border); border-radius: 12px; padding: 30px; min-height: 400px; color: #ddd; }}
+            .knowledge-paper h3 {{ border-bottom: 2px solid var(--accent); padding-bottom: 15px; margin-top: 0; }}
             
-            details {{ margin-top: 15px; border-top: 1px solid #333; padding-top: 10px; }}
-            summary {{ cursor: pointer; color: #777; font-size: 0.85rem; }}
-            .abstract-text {{ margin-top: 10px; font-size: 0.9rem; color: #bbb; text-align: justify; line-height: 1.6; word-break: keep-all; }}
+            details {{ margin-top: 15px; border-top: 1px solid #333; padding-top: 15px; }}
+            summary {{ cursor: pointer; color: #888; font-size: 0.9rem; font-weight: 600; transition: color 0.2s; }}
+            summary:hover {{ color: var(--accent); }}
+            .abstract-text {{ margin-top: 12px; font-size: 0.95rem; color: #bbb; text-align: justify; line-height: 1.65; word-break: break-all; }}
             
             .arxiv-ack {{ text-align: center; margin-top: 40px; margin-bottom: 20px; color: #444; font-size: 0.8rem; font-family: monospace; padding-top: 20px; border-top: 1px solid #222; }}
             
-            footer {{ margin-top: auto; padding-top: 20px; }}
-
             @media (max-width: 480px) {{
                 body {{ padding: 15px; }}
+                h1 {{ font-size: 1.8rem; }}
                 .card-grid {{ grid-template-columns: 1fr; }} 
                 .tabs {{ justify-content: flex-start; }}
             }}
@@ -369,24 +392,22 @@ def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content
     <body>
         <div class="container">
             <header>
-                <h1>AI 정보</h1>
-                <div class="timestamp">Updated: {now_kst}</div>
+                <h1>Daily AI Insights</h1>
+                <div class="timestamp">Last Updated: {now_kst}</div>
             </header>
 
             <nav class="tabs">
-                <button class="tab-btn" onclick="openTab('Knowledge')">지식</button>
-                <button class="tab-btn active" onclick="openTab('News')">뉴스</button>
-                <button class="tab-btn" onclick="openTab('Papers')">논문</button>
-                <button class="tab-btn" onclick="openTab('Labs')">연구소</button>
-                <button class="tab-btn" onclick="openTab('Conferences')">학회</button>
-                <button class="tab-btn" onclick="openTab('Others')">기타</button>
+                <button class="tab-btn active" onclick="openTab('News')">뉴스 (News)</button>
+                <button class="tab-btn" onclick="openTab('Labs')">연구소 (Labs)</button>
+                <button class="tab-btn" onclick="openTab('Papers')">논문 (Papers)</button>
+                <button class="tab-btn" onclick="openTab('Conferences')">학회 (Conf)</button>
+                <button class="tab-btn" onclick="openTab('Knowledge')">지식 (History)</button>
+                <button class="tab-btn" onclick="openTab('Others')">기타 (Etc)</button>
             </nav>
 
             <main>
                 {content_html}
             </main>
-
-            <footer></footer>
         </div>
 
         <script>
@@ -401,17 +422,8 @@ def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content
                 var btns = document.getElementsByClassName("tab-btn");
                 for (i = 0; i < btns.length; i++) {{
                     btns[i].classList.remove("active");
-                    var txt = btns[i].innerText;
-                    
-                    if (
-                        (tabName === 'News' && txt.includes('뉴스')) ||
-                        (tabName === 'Papers' && txt.includes('논문')) ||
-                        (tabName === 'Labs' && txt.includes('연구소')) ||
-                        (tabName === 'Conferences' && txt.includes('학회')) ||
-                        (tabName === 'Knowledge' && txt.includes('지식')) ||
-                        (tabName === 'Others' && txt.includes('기타'))
-                    ) {{
-                        btns[i].classList.add("active");
+                    if (btns[i].getAttribute('onclick').includes(tabName)) {{
+                         btns[i].classList.add("active");
                     }}
                 }}
             }}
@@ -427,16 +439,23 @@ if __name__ == "__main__":
     paper_data = get_arxiv_papers()
 
     if GOOGLE_API_KEY:
+        print("\n--- 번역 프로세스 시작 (약간의 시간이 소요됩니다) ---")
+        
         if 'Labs' in rss_data:
+            print("1. 해외 연구소 블로그 제목 번역 중...")
             process_translation(rss_data['Labs'], ['title'])
-            
+
         if paper_data:
-            print(" - 논문(Papers) 초록 번역 중...")
+            print("2. ArXiv 논문 제목 및 요약 번역 중...")
             process_translation(paper_data, ['title', 'abstract'])
+            
+        print("--- 번역 완료 ---\n")
+    else:
+        print("\n[알림] GOOGLE_API_KEY가 설정되지 않아 번역이 생략됩니다.\n")
 
     html_out = create_html(rss_data, paper_data, CONFERENCE_LINKS, OTHER_LINKS, KNOWLEDGE_CONTENT)
     
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_out)
         
-    print("index.html Generated Successfully.")
+    print("index.html 파일이 성공적으로 생성되었습니다.")
