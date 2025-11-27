@@ -1,0 +1,789 @@
+
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AI Information</title>
+        <style>
+            :root {
+                --bg: #111111;
+                --card-bg: #1c1c1c;
+                --text-main: #f0f0f0;
+                --text-sub: #888888;
+                --accent: #ffffff; 
+                --border: #333;
+            }
+            body {
+                background-color: var(--bg);
+                color: var(--text-main);
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                margin: 0; padding: 20px;
+                line-height: 1.6;
+            }
+            .container { max-width: 1200px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+            
+            header { text-align: center; margin-bottom: 20px; }
+            h1 { margin: 0; font-weight: 700; font-size: 2rem; }
+            .timestamp { color: var(--text-sub); font-size: 0.8rem; font-family: monospace; margin-top: 10px; }
+            
+            .tabs { 
+                display: flex; gap: 12px; margin-bottom: 30px; border-bottom: 1px solid var(--border);
+                padding-bottom: 15px; overflow-x: auto; white-space: nowrap; justify-content: center;
+                -webkit-overflow-scrolling: touch; scrollbar-width: none;
+            }
+            .tabs::-webkit-scrollbar { display: none; }
+
+            .tab-btn {
+                background: transparent; border: 1px solid var(--border); color: var(--text-sub);
+                padding: 10px 20px; cursor: pointer; border-radius: 8px; font-weight: 600; font-size: 0.95rem;
+                transition: all 0.2s; flex: 0 0 auto; 
+            }
+            .tab-btn:hover { border-color: var(--accent); color: #fff; }
+            .tab-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+            
+            .tab-content { display: none; animation: fadeIn 0.3s; flex: 1; }
+            .tab-content.active { display: block; }
+            @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+            
+            .card-grid {
+                display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+                gap: 20px; justify-content: center; 
+            }
+            
+            .card {
+                background-color: var(--card-bg); border: 1px solid var(--border);
+                border-radius: 10px; padding: 20px; transition: transform 0.2s;
+                display: flex; flex-direction: column;
+            }
+            .card:hover { transform: translateY(-3px); border-color: #555; }
+            .card-meta { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.75rem; }
+            
+            .badge { background: #222; color: var(--accent); padding: 3px 8px; border-radius: 4px; font-weight: bold; border: 1px solid #333; }
+            .paper-badge { color: var(--accent); } 
+            
+            .date { color: #666; font-family: monospace; }
+            .card-title { display: block; font-size: 1.1rem; font-weight: 600; color: #fff; text-decoration: none; margin-bottom: 5px; word-break: keep-all; flex-grow: 1; }
+            .card-title:hover { color: var(--accent); text-decoration: underline; }
+            .card-author { font-size: 0.85rem; color: #777; margin-bottom: 8px; font-style: italic; }
+            
+            .link-card { text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 120px; text-decoration: none; align-items: center; }
+            .link-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 5px; color: #fff; }
+            .link-desc { font-size: 0.85rem; color: var(--text-sub); }
+            
+            .knowledge-paper { background-color: #1a1a1a; border: 1px solid var(--border); border-radius: 8px; padding: 40px; min-height: 400px; color: #ddd; }
+            .knowledge-paper h3 { border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-top: 0; }
+            
+            details { margin-top: 15px; border-top: 1px solid #333; padding-top: 10px; }
+            summary { cursor: pointer; color: #777; font-size: 0.85rem; }
+            .abstract-text { margin-top: 10px; font-size: 0.9rem; color: #bbb; text-align: justify; line-height: 1.6; word-break: keep-all; }
+            
+            .arxiv-ack { text-align: center; margin-top: 40px; margin-bottom: 20px; color: #444; font-size: 0.8rem; font-family: monospace; padding-top: 20px; border-top: 1px solid #222; }
+            
+            footer { margin-top: auto; padding-top: 20px; }
+
+            @media (max-width: 480px) {
+                body { padding: 15px; }
+                .card-grid { grid-template-columns: 1fr; } 
+                .tabs { justify-content: flex-start; }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>AI 정보</h1>
+                <div class="timestamp">Updated: 2025-11-28 04:18:39</div>
+            </header>
+
+            <nav class="tabs">
+                <button class="tab-btn" onclick="openTab('Knowledge')">지식</button>
+                <button class="tab-btn active" onclick="openTab('News')">뉴스</button>
+                <button class="tab-btn" onclick="openTab('Papers')">논문</button>
+                <button class="tab-btn" onclick="openTab('Labs')">연구소</button>
+                <button class="tab-btn" onclick="openTab('Conferences')">학회</button>
+                <button class="tab-btn" onclick="openTab('Others')">기타</button>
+            </nav>
+
+            <main>
+                <div id="News" class="tab-content"><div class="card-grid">
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">인공지능신문</span>
+                        <span class="date">2025-11-27 20:57</span>
+                    </div>
+                    <a href="https://www.aitimes.kr/news/articleView.html?idxno=37434" target="_blank" class="card-title">퀄컴, 차세대 모바일 플랫폼 ‘스냅드래곤 8 Gen 5’ 공개… 프리미엄 성능과 AI 경험 대폭 강화</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">AI 타임스</span>
+                        <span class="date">2025-11-27 18:05</span>
+                    </div>
+                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204315" target="_blank" class="card-title">'바이브 코딩' 카르파시 "첨단 모델끼리 답변 평가하는 앱 제작했더니"</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">AI 타임스</span>
+                        <span class="date">2025-11-27 18:05</span>
+                    </div>
+                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204309" target="_blank" class="card-title">블랙 포레스트 랩스, 이미지 모델 ‘플럭스.2’ 출시..."기업용 경쟁력 갖춰"</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">AI 타임스</span>
+                        <span class="date">2025-11-27 18:05</span>
+                    </div>
+                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204306" target="_blank" class="card-title">중국 오픈 소스 모델, 사상 처음으로 미국 인기 넘어서</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">AI 타임스</span>
+                        <span class="date">2025-11-27 18:05</span>
+                    </div>
+                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204305" target="_blank" class="card-title">구글 CEO "고생한 직원들 휴식 취할 시간...차기 모델도 바로 착수"</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">AI 타임스</span>
+                        <span class="date">2025-11-27 18:00</span>
+                    </div>
+                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204320" target="_blank" class="card-title">'부적절한 대화' AI 곰 인형, 오픈AI서 바이트댄스 챗봇으로 교체 후 판매 재개</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">AI Matters</span>
+                        <span class="date">2025-11-27 11:32</span>
+                    </div>
+                    <a href="https://aimatters.co.kr/news-report/ai-report/34343/" target="_blank" class="card-title">“눈으로 보고, 글로 계산”… AI 추론 능력 끌어올리는 해법 찾았다</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">AI Matters</span>
+                        <span class="date">2025-11-27 11:15</span>
+                    </div>
+                    <a href="https://aimatters.co.kr/news-report/ai-report/34339/" target="_blank" class="card-title">“여기 어디야?” 사진 한 장에 위치 맞추는 AI 등장… 간판, 건물 모양, 표지판 분석해 장소 찾는다</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">AI Matters</span>
+                        <span class="date">2025-11-27 11:01</span>
+                    </div>
+                    <a href="https://aimatters.co.kr/news-report/ai-report/34334/" target="_blank" class="card-title">건설 현장 사망사고 20%가 ‘추락’… AI가 안전모 미착용까지 잡아낸다</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">인공지능신문</span>
+                        <span class="date">2025-11-26 20:22</span>
+                    </div>
+                    <a href="https://www.aitimes.kr/news/articleView.html?idxno=37409" target="_blank" class="card-title">뇌신호 레이블 부족 문제 해결...DGIST, 세계 최초 멀티모달 뇌신호 기반 인공지능 모델 개발</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">AI Matters</span>
+                        <span class="date">2025-11-26 11:42</span>
+                    </div>
+                    <a href="https://aimatters.co.kr/news-report/ai-report/34286/" target="_blank" class="card-title">AI에 “넌 가난한 학생이야” 역할 줬더니… 취향 물을 땐 역할 충실, 시험 보면 본색 드러내</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">AI Matters</span>
+                        <span class="date">2025-11-26 10:58</span>
+                    </div>
+                    <a href="https://aimatters.co.kr/news-report/ai-report/34282/" target="_blank" class="card-title">“역대 대통령 순서대로 나열해봐”… AI에게 시켜봤더니 생긴 일</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">인공지능신문</span>
+                        <span class="date">2025-11-26 10:28</span>
+                    </div>
+                    <a href="https://www.aitimes.kr/news/articleView.html?idxno=37394" target="_blank" class="card-title">"AI가 위험도 먼저 감지, 안전성 더한 시각언어모델"...ETRI, ‘세이프 라바’ 오픈소스로 공개</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">인공지능신문</span>
+                        <span class="date">2025-11-26 09:45</span>
+                    </div>
+                    <a href="https://www.aitimes.kr/news/articleView.html?idxno=37393" target="_blank" class="card-title">ST마이크로, 업계 최대 규모 마이크로컨트롤러용 AI Model Zoo 출시…피지컬 AI 상용화 속도 높인다</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">인공지능신문</span>
+                        <span class="date">2025-11-26 09:24</span>
+                    </div>
+                    <a href="https://www.aitimes.kr/news/articleView.html?idxno=37392" target="_blank" class="card-title">"AI가 어떻게 생각하는가?"...KAIST 최재식 교수팀, 의사결정 내부 구조 첫 시각화</a>
+                </div>
+                </div></div><div id="Labs" class="tab-content"><div class="card-grid">
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">Google</span>
+                        <span class="date">2025-11-27</span>
+                    </div>
+                    <a href="https://blog.google/outreach-initiatives/google-org/deepening-our-ai-research-partnership-with-tel-aviv-university/" target="_blank" class="card-title">Here are a few natural translations of the text, keeping the technical AI terms:
+
+**Option 1 (Focus on the partnership itself):**
+
+> Tel Aviv University와의 AI 연구 파트너십을 더욱 공고히 합니다.
+
+**Option 2 (Slightly more formal):**
+
+> 텔아비브 대학교와의 AI 연구 파트너십을 심화합니다.
+
+**Option 3 (Emphasizing the work being done):**
+
+> 텔아비브 대학교와의 AI 연구 파트너십을 통해 AI 기술 연구를 더욱 발전시키겠습니다.
+
+**Why these work:**
+
+*   **"AI" is universally understood.** The term "AI" is becoming increasingly common in Korean.
+*   **Keeping "LLM" and "Transformer" directly would be unnatural.** Unless you're in a very technical context, it's best to translate the general concept.  It's unlikely these specific acronyms would be included in such a general announcement.
+*   **Common verbs for partnerships:**  "공고히 하다" (to solidify/strengthen), "심화하다" (to deepen), and "발전시키다" (to advance/develop) are all good choices depending on the nuance you want.
+
+Choose the option that best fits the tone and context of your broader announcement.  If you *did* need to explain more, you could briefly explain what they will be working on, e.g. "LLM 개발 및 Transformer 모델 연구를 위해 협력합니다." (We are collaborating on the development of LLMs and research into Transformer models).</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">OpenAI</span>
+                        <span class="date">2025-11-27</span>
+                    </div>
+                    <a href="https://openai.com/index/mixpanel-incident" target="_blank" class="card-title">Here's a natural translation of the text, keeping the technical terms:
+
+**Mixpanel 보안 사고: OpenAI 사용자들은 무엇을 알아야 할까요?**
+
+(Optional slightly more casual alternative):
+
+**Mixpanel 보안 사고: OpenAI 사용자들은 이 내용을 알아야 해요!**</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">MIT(CSAIL)</span>
+                        <span class="date">2025-11-26</span>
+                    </div>
+                    <a href="https://news.mit.edu/2025/shortcoming-makes-llms-less-reliable-1126" target="_blank" class="card-title">Researchers have identified a limitation that makes LLMs less reliable.</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">OpenAI</span>
+                        <span class="date">2025-11-26</span>
+                    </div>
+                    <a href="https://openai.com/index/expanding-data-residency-access-to-business-customers-worldwide" target="_blank" class="card-title">Here are a few natural translations, keeping the AI terms intact, with slight variations in emphasis:
+
+**Option 1 (Focus on access):**
+
+> 전 세계 비즈니스 고객에게 데이터 상주(Data Residency) 접근 권한을 확대 제공합니다.
+
+**Option 2 (Focus on global availability):**
+
+> 전 세계 비즈니스 고객을 위해 데이터 상주(Data Residency) 접근 권한을 확대합니다.
+
+**Option 3 (Slightly more formal):**
+
+> 전 세계 비즈니스 고객을 대상으로 데이터 상주(Data Residency) 접근 권한 제공을 확대합니다.
+
+**Why these translations work:**
+
+*   **데이터 상주 (Data Residency):** This is the direct Korean translation of "Data Residency," and it's the most common and accepted term in Korean for this concept. We leave the English term in parentheses for clarity and potential SEO benefits.
+*   **접근 권한 (Jeopgeun Gwonhan):** "Access rights" or "permission."
+*   **확대 제공합니다 (Hwakdae Jeogonghamnida) / 확대합니다 (Hwakdae Hamnida):** "Expands provision" or "expands" - conveying the action of making something more available.
+*   **전 세계 비즈니스 고객 (Jeon segye bijeuneseu gogaek):** "Worldwide business customers," a direct and clear translation.
+*   The options are all grammatically correct and flow naturally in Korean.
+
+Choose the one that best suits the overall tone and context of your communication.</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">MIT(CSAIL)</span>
+                        <span class="date">2025-11-26</span>
+                    </div>
+                    <a href="https://news.mit.edu/2025/mit-scientists-debut-generative-ai-model-that-could-create-molecules-addressing-hard-to-treat-diseases-1125" target="_blank" class="card-title">MIT scientists have unveiled a generative AI model capable of creating molecules that could potentially combat difficult-to-treat diseases.</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">OpenAI</span>
+                        <span class="date">2025-11-25</span>
+                    </div>
+                    <a href="https://openai.com/index/mental-health-litigation-approach" target="_blank" class="card-title">Our Approach to Mental Health-Related Legal Cases (or Lawsuits)</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">CMU(SCS)</span>
+                        <span class="date">2025-11-25</span>
+                    </div>
+                    <a href="https://www.cmu.edu/news/stories/archives/2025/november/real-world-cyber-experience-is-hard-to-get-this-cmu-program-could-change-that" target="_blank" class="card-title">Here are a few natural-sounding translations of the text, keeping the technical AI terms:
+
+**Option 1 (Focus on the experience):**
+
+CMU의 프로그램, 학생들이 실제 사이버 보안 경험을 쌓도록 돕다.
+
+**Option 2 (Slightly more formal):**
+
+CMU 프로그램, 학생들의 실제 사이버 보안 경험 습득을 지원하다.
+
+**Option 3 (Emphasizing the benefit of experience):**
+
+CMU 프로그램, 학생들이 실제 사이버 보안 경험을 통해 역량을 강화하도록 돕습니다.
+
+**Why these translations work:**
+
+*   **"CMU"** is kept as is because it's a known abbreviation.
+*   The core meaning "students gaining experience" is conveyed naturally.
+*   The overall tone is clear and concise, which suits the original text.
+
+No need to translate "LLM" or "Transformer" since they are not used in the original text, and contextually irrelevant. If these terms WERE used, they would likely be written in English.</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">MIT(CSAIL)</span>
+                        <span class="date">2025-11-25</span>
+                    </div>
+                    <a href="https://news.mit.edu/2025/how-ai-can-help-achieve-clean-energy-future-1124" target="_blank" class="card-title">Here are a few natural-sounding translations of "How artificial intelligence can help achieve a clean energy future," keeping the technical AI terms:
+
+**Option 1 (Focus on practical application):**
+
+*   How can artificial intelligence help us build a cleaner energy future?
+
+**Option 2 (More direct):**
+
+*   Using artificial intelligence to create a clean energy future.
+
+**Option 3 (Emphasizing the potential):**
+
+*   Artificial intelligence: The key to unlocking a clean energy future?
+
+**Option 4 (Slightly more formal):**
+
+*   The role of artificial intelligence in achieving a future powered by clean energy.
+
+**Why these translations work:**
+
+*   They all accurately convey the original meaning.
+*   They use natural English phrasing.
+*   They don't try to over-explain "artificial intelligence" or any of the technical terms in the title; we assume the reader has some familiarity.
+*   The title itself doesn't use the technical terms, so there is no need to keep them.</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">CMU(SCS)</span>
+                        <span class="date">2025-11-25</span>
+                    </div>
+                    <a href="https://www.cs.cmu.edu/news/2025/sandholm-alfred-kordelin-prize" target="_blank" class="card-title">Here are a few natural translations, maintaining the technical terms:
+
+**Option 1 (Focus on directness):**
+
+Sandholm wins Alfred Kordelin Prize for AI research with global impact. He's been working on cutting-edge things in AI, like LLMs and the Transformer architecture.
+
+**Option 2 (Slightly more descriptive):**
+
+Sandholm awarded the Alfred Kordelin Prize for his impactful AI research. His work involves important contributions to fields like LLMs and the application of the Transformer model.
+
+**Option 3 (Emphasis on the significance of the award):**
+
+The Alfred Kordelin Prize goes to Sandholm for his AI research, which is making a global difference. His work often uses techniques from LLMs and the Transformer approach.
+
+**Key considerations in these translations:**
+
+*   **"Earns," "Wins," "Awarded":** All are appropriate ways to express receiving a prize.
+*   **Emphasis on "Global Impact":** The translations preserve this key element.
+*   **Technical Terms:** The terms "LLM" and "Transformer" are maintained as they are standard in the AI field.
+*   **Natural Language:** The phrasing aims to be clear, concise, and easy to understand for a general audience familiar with current tech.</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">CMU(SCS)</span>
+                        <span class="date">2025-11-20</span>
+                    </div>
+                    <a href="https://www.cylab.cmu.edu/news/2025/11/14-beyond-the-fine-print.html" target="_blank" class="card-title">Here's a natural translation of the text, keeping the technical AI terms:
+
+**CyLab 재상상, 온라인 개인 정보 보호 선택을 어떻게 할까?**
+
+or, with a slightly more polished feel:
+
+**CyLab, 온라인 개인 정보 보호 선택 방식을 재구상하다.**
+
+This version preserves the key elements:
+
+*   **CyLab:** Keeps the proper noun untouched.
+*   **재상상/재구상하다 (Reimagines):** Uses Korean verbs for "reimagines" to convey the meaning of rethinking or changing how something is done.
+*   **어떻게 할까/방식을:** Maintains the original sentence structure while making it read more naturally.
+*   **온라인 개인 정보 보호 선택 (How We Make Online Privacy Choices):** Accurately translates the English phrase.</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">Google</span>
+                        <span class="date">2025-11-19</span>
+                    </div>
+                    <a href="https://blog.google/technology/research/ai-collaboration-poland-2025/" target="_blank" class="card-title">At our Research@ Poland event, we showed how AI is helping us tackle big challenges.</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">Google</span>
+                        <span class="date">2025-11-18</span>
+                    </div>
+                    <a href="https://blog.google/technology/google-deepmind/weathernext-2/" target="_blank" class="card-title">Here are a few natural translations, keeping "LLM" and "Transformer" if they were present in the original (I'm assuming they weren't, as they're not in your text):
+
+*   **WeatherNext 2: Our most advanced weather forecasting model.** (This is a direct and natural translation, assuming no AI technical terms.)
+
+Here are a few options if you wanted to emphasize "advanced":
+
+*   **Introducing WeatherNext 2: Our most sophisticated weather forecasting model.**
+*   **WeatherNext 2: The cutting-edge weather forecasting model.**
+*   **WeatherNext 2: Weather forecasting at its finest.**
+
+**Key considerations:**
+
+*   The original is already concise and clear, so any changes would be about emphasis, or flow (which really depends on the context of the larger piece)
+*   The best choice depends on the surrounding text and the overall tone you're going for.</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">UC Berkeley(BAIR)</span>
+                        <span class="date">2025-11-01</span>
+                    </div>
+                    <a href="http://bair.berkeley.edu/blog/2025/11/01/rl-without-td-learning/" target="_blank" class="card-title">Here are a few natural translations, maintaining the technical terms:
+
+**Option 1 (Most direct):**
+
+RL without TD learning.
+
+**Option 2 (Slightly more descriptive):**
+
+Reinforcement Learning (RL) that doesn't use Temporal Difference (TD) learning.
+
+**Option 3 (Emphasizing the contrast):**
+
+RL methods that avoid TD learning.
+
+**Option 4 (Potentially expanding to context, if needed):**
+
+Approaches to Reinforcement Learning (RL) that operate *without* relying on Temporal Difference (TD) learning, which is a common technique in this field.
+
+**Why these work:**
+
+*   **"RL" and "TD learning" are well-established terms in AI.** They are not meant to be translated.
+*   The surrounding words can be adjusted to make the phrase flow more naturally in English.
+*   Options 2, 3 and 4 provides clarification for the audience that is not familiar with AI terminology.
+
+The best option depends on the specific context where this phrase appears. If it's in a technical paper, Option 1 or 2 are perfectly fine. If it's for a more general audience, Option 3 or 4 might be better.</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">UC Berkeley(BAIR)</span>
+                        <span class="date">2025-09-01</span>
+                    </div>
+                    <a href="http://bair.berkeley.edu/blog/2025/09/01/qwem-word2vec-theory/" target="_blank" class="card-title">What, exactly, is word2vec learning?</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">UC Berkeley(BAIR)</span>
+                        <span class="date">2025-07-01</span>
+                    </div>
+                    <a href="http://bair.berkeley.edu/blog/2025/07/01/peva/" target="_blank" class="card-title">Here are a few natural translations, keeping "LLM" and "Transformer" as is:
+
+**Option 1 (Concise):**
+
+Predicting Video from an Egocentric View, Conditioned by Whole-Body Information
+
+**Option 2 (Slightly more descriptive):**
+
+Forecasting a Person's Egocentric Video, Taking Whole-Body Context into Account
+
+**Option 3 (Emphasizing the conditioning aspect):**
+
+Predicting What You See (Egocentric Video) Based on Whole-Body Conditions
+
+**Option 4 (More technical, but still natural):**
+
+Whole-Body Information as a Condition for Predicting Video Seen from a First-Person Perspective</a>
+                </div>
+                </div></div><div id="Papers" class="tab-content"><div class="card-grid">
+            <div class="card paper-card">
+                <div class="card-meta">
+                    <span class="badge paper-badge">cs.CL</span>
+                    <span class="date">2025-11-27</span>
+                </div>
+                <a href="http://arxiv.org/abs/2511.21692v1" target="_blank" class="card-title">Here's a natural translation of the text, keeping the technical AI terms:
+
+**Revisiting Generalization Across Difficulty Levels: It's Not So Easy**
+
+This translates directly and effectively. The title sets the stage for a discussion about how well a model, likely an **LLM** (Large Language Model) or a model built on a **Transformer** architecture, generalizes (performs well) across different levels of task difficulty. The "It's Not So Easy" part implies that achieving this generalization is a complex challenge.</a>
+                <div class="card-author">Yeganeh Kordi et al.</div>
+                <details>
+                    <summary>Abstract (Translated)</summary>
+                    <div class="abstract-text">우리는 대규모 언어 모델(LLM)이 다양한 난이도의 작업 전반에 걸쳐 얼마나 잘 일반화되는지 조사합니다. 이는 효과적인 데이터 관리 및 평가에 중요한 질문입니다. 쉬운 데이터 또는 어려운 데이터로 훈련하는 것이 더 나은 결과를 낳는지, 그리고 이러한 이점이 더 쉬운 테스트 데이터 또는 더 어려운 테스트 데이터에서 나타나는지에 대한 기존 연구는 의견이 분분합니다. 우리는 여러 모델, 데이터 세트, 그리고 세분화된 예시 난이도 그룹 전반에 걸친 LLM의 일반화를 체계적으로 평가함으로써 이 질문에 답합니다. 우리는 수천 개의 서로 다른 LLM의 출력과 교육 평가에서 잘 확립된 난이도 측정 방식인 문항 반응 이론(IRT)을 사용하여 여섯 개의 데이터 세트에서 예시의 순위를 매깁니다. 이전 연구와 달리, 우리의 난이도 등급은 인간의 난이도에 대한 의견을 배제하고, 많은 서로 다른 LLM의 능력에 의해서만 결정됩니다. 더욱 객관적이고 대규모이며 세분화된 분석을 통해, 우리는 난이도 간의 일반화가 종종 제한적임을 보여줍니다. 쉬운 데이터 또는 어려운 데이터로 훈련하는 것이 모든 난이도 범위에서 일관된 개선을 달성할 수 없습니다. 이러한 결과는 LLM을 위한 훈련 및 평가 데이터 모두에서 다양한 난이도를 갖는 것이 중요하다는 것과 난이도에 관해 지름길을 택하는 것이 위험하다는 것을 보여줍니다.</div>
+                </details>
+            </div>
+            
+            <div class="card paper-card">
+                <div class="card-meta">
+                    <span class="badge paper-badge">cs.RO</span>
+                    <span class="date">2025-11-27</span>
+                </div>
+                <a href="http://arxiv.org/abs/2511.21690v1" target="_blank" class="card-title">Here's a natural translation of the title, preserving the key AI terms:
+
+**TraceGen: 3D Trace Space-based World Modeling Facilitates Learning from Cross-Embodiment Videos**
+
+Here's another option, slightly more focused on the practical implication:
+
+**TraceGen: Building a 3D World Model in Trace Space to Learn from Videos Across Different Embodiments**
+
+And one more, emphasizing the novelty:
+
+**TraceGen: Learning from Cross-Embodiment Videos by Representing the World in 3D Trace Space with a New World Modeling Approach**</a>
+                <div class="card-author">Seungjae Lee et al.</div>
+                <details>
+                    <summary>Abstract (Translated)</summary>
+                    <div class="abstract-text">새로운 플랫폼과 새로운 환경에서 단 몇 번의 데모만으로 새로운 로봇 작업을 배우는 것은 여전히 어려운 과제입니다. 인간이나 다른 로봇과 같은 다양한 구현체 (embodiment)의 비디오가 풍부하지만, 구현체, 카메라, 환경의 차이로 인해 직접적인 사용이 어렵습니다. 저희는 소량의 데이터 문제를 해결하기 위해, 장면 수준 궤적의 압축된 3D "trace-space"라는 통일적인 기호 표현을 도입하여, 구현체 간, 환경 간, 작업 간 비디오로부터 학습할 수 있도록 합니다. 저희는 TraceGen을 제시합니다. 이는 픽셀 공간이 아닌 trace-space에서 미래의 움직임을 예측하는 세계 모델로, 조작에 필요한 기하학적 구조는 유지하면서 외형은 추상화합니다. TraceGen을 대규모로 훈련시키기 위해, 저희는 다양한 인간 및 로봇 비디오를 일관된 3D trace로 변환하는 데이터 파이프라인인 TraceForge를 개발했습니다. 이를 통해 123,000개의 비디오와 180만 개의 observation-trace-language 튜플로 구성된 코퍼스를 생성했습니다. 이 코퍼스에 대한 사전 훈련은 효율적으로 적응하는 이전 가능한 3D motion prior을 생성합니다. 단 다섯 개의 목표 로봇 비디오만으로, TraceGen은 네 가지 작업에서 80%의 성공률을 달성하는 동시에 최첨단 비디오 기반 세계 모델보다 50~600배 빠른 추론 속도를 제공합니다. 휴대폰으로 촬영된, 보정되지 않은 (uncalibrated) 인간 데모 비디오가 단 다섯 개만 사용 가능한 더욱 어려운 경우에도, TraceGen은 실제 로봇에서 67.5%의 성공률을 달성하여, 객체 감지기나 무거운 픽셀 공간 생성을 사용하지 않고도 구현체 간에 적응할 수 있는 TraceGen의 능력을 보여줍니다.
+
+**Note:** I've kept the technical terms like "LLM", "Transformer", "trace-space", and "world model" as they are in English, as they are well-established terms in the AI field. If there were a specific context where these terms needed to be translated, the translation would depend on the target audience and the level of technical detail required.</div>
+                </details>
+            </div>
+            
+            <div class="card paper-card">
+                <div class="card-meta">
+                    <span class="badge paper-badge">cs.CL</span>
+                    <span class="date">2025-11-27</span>
+                </div>
+                <a href="http://arxiv.org/abs/2511.21689v1" target="_blank" class="card-title">Here are a few natural translations of "ToolOrchestra: Elevating Intelligence via Efficient Model and Tool Orchestration," keeping the technical AI terms:
+
+**Option 1 (Focus on Benefit):**
+
+ToolOrchestra: Boosting Intelligence Through Efficient Model and Tool Orchestration.
+
+**Option 2 (Focus on What it Does):**
+
+ToolOrchestra: Enhancing Intelligence with Optimized Model and Tool Orchestration.
+
+**Option 3 (More Literal):**
+
+ToolOrchestra: Raising Intelligence through Effective Model and Tool Orchestration.
+
+**Option 4 (Slightly More Descriptive):**
+
+ToolOrchestra: Improving Intelligence with Efficient Coordination of Models and Tools (Orchestration).
+
+**Explanation of Choices:**
+
+*   **"Elevating" / "Boosting" / "Enhancing" / "Improving":** These are all suitable synonyms for "elevating" in this context, conveying the idea of increasing intelligence.
+*   **"Via" / "Through" / "With":** These prepositions are all natural ways to connect the "intelligence" with the "orchestration."
+*   **"Efficient Model and Tool Orchestration":** This part remains unchanged, preserving the technical language.</a>
+                <div class="card-author">Hongjin Su et al.</div>
+                <details>
+                    <summary>Abstract (Translated)</summary>
+                    <div class="abstract-text">거대한 언어 모델(Large language models, LLM)은 강력한 제너럴리스트지만, '인류 마지막 시험(Humanity's Last Exam, HLE)'과 같이 심오하고 복잡한 문제를 해결하는 것은 개념적으로도 어렵고 계산 비용도 많이 듭니다. 우리는 다른 모델과 다양한 도구를 관리하는 소형 오케스트레이터가 지능의 상한선을 높이고 어려운 에이전트 작업을 해결하는 효율성을 향상시킬 수 있음을 보여줍니다. 저희는 지능적인 도구를 조율하는 소형 오케스트레이터를 훈련하는 방법인 ToolOrchestra를 소개합니다. ToolOrchestra는 결과, 효율성, 그리고 사용자 선호를 고려한 보상으로 강화 학습(Reinforcement Learning)을 명시적으로 사용합니다. ToolOrchestra를 사용하여, 저희는 기존의 도구 사용 에이전트보다 더 낮은 비용으로 더 높은 정확도를 달성하고 주어진 쿼리에 어떤 도구를 사용할지에 대한 사용자 선호도에 부합하는 80억 파라미터(8B) 규모의 모델인 Orchestrator를 개발했습니다. HLE에서 Orchestrator는 GPT-5 (35.1%)를 능가하는 37.1%의 점수를 기록했으며, 효율성은 2.5배 더 높았습니다. tau2-Bench와 FRAMES에서도 Orchestrator는 GPT-5를 큰 차이로 앞섰으며, 비용은 약 30%만 사용했습니다. 광범위한 분석을 통해 Orchestrator가 여러 지표에서 성능과 비용 사이의 최상의 균형을 달성했으며, 보이지 않는 도구에도 강력하게 일반화됨을 보여줍니다. 이러한 결과는 가볍고 효율적인 오케스트레이션 모델로 다양한 도구를 조합하는 것이 기존 방법보다 더 효율적이고 효과적임을 보여주며, 실용적이고 확장 가능한 도구 기반 추론 시스템의 길을 열었습니다.</div>
+                </details>
+            </div>
+            
+            <div class="card paper-card">
+                <div class="card-meta">
+                    <span class="badge paper-badge">cs.CV</span>
+                    <span class="date">2025-11-27</span>
+                </div>
+                <a href="http://arxiv.org/abs/2511.21688v1" target="_blank" class="card-title">Here's a natural translation of the title, keeping the technical terms:
+
+**G$^2$VLM: 기하학 기반 시각 언어 모델 (3D 재구성과 공간 추론 통합)**
+
+Here's a breakdown of the translation and why it's a good fit:
+
+*   **G$^2$VLM:**  This stays the same, as it's the model's name/acronym.
+*   **Geometry Grounded:** This is translated as "**기하학 기반**" (gi-ha-hak gi-ban), which means "geometry-based" or "grounded in geometry." This accurately reflects the core concept.
+*   **Vision Language Model:** The term is kept as **시각 언어 모델 (sig-gak eon-eo model)**. Because it's a technical term, keeping it in Korean preserves its meaning while making the title clear.
+*   **with Unified 3D Reconstruction and Spatial Reasoning:** This is translated as **(3D 재구성과 공간 추론 통합)**, which means "(Unified 3D reconstruction and spatial reasoning)." The term "unified" is well understood in English.
+
+**Why this works:**
+
+*   **Clarity:** It clearly conveys the core concepts of the paper, using both the established acronym and a clear, descriptive translation of the rest of the text.
+*   **Natural Sounding:** The Korean phrases flow well and are readily understandable by a Korean-speaking audience.
+*   **Accuracy:** It maintains the technical accuracy of the original text while making it accessible.</a>
+                <div class="card-author">Wenbo Hu et al.</div>
+                <details>
+                    <summary>Abstract (Translated)</summary>
+                    <div class="abstract-text">시각-언어 모델(VLMs)은 아직 공간 지능 측면에서 견고함이 부족하며, 공간 이해 및 추론 작업에서 좋지 않은 성능을 보입니다. 우리는 이러한 격차의 원인을 2D 이미지로부터 3D 공간을 재구성할 수 있는 시각적 기하 학습 과정의 부재로 봅니다. 본 논문에서는 공간 지능의 두 가지 근본적인 측면인 공간 3D 재구성 및 공간 이해를 연결하는 기하 기반 시각-언어 모델인 G$^2$VLM을 제시합니다. G$^2$VLM은 학습된 3D 시각 기하 특징을 기본적으로 활용하여 3D 속성을 직접 예측하고, in-context learning과 interleaved reasoning을 통해 공간 추론 작업을 향상시킵니다. 우리의 통합 설계는 공간 이해에 매우 확장 가능합니다. 풍부한 멀티뷰 이미지 및 비디오 데이터로 학습하는 동시에, 수집하기 어려운 주석에서 일반적으로 파생되는 3D 시각 사전 지식의 이점을 활용합니다. 실험 결과는 G$^2$VLM이 두 작업 모두에서 뛰어나며, 최첨단 feed-forward 3D 재구성 모델과 유사한 결과를 달성하고, 공간 이해 및 추론 작업 전반에서 더 좋거나 경쟁력 있는 결과를 얻는 것을 보여줍니다. 의미적으로 강력한 VLM을 낮은 수준의 3D 시각 작업과 통합함으로써, 우리는 G$^2$VLM이 커뮤니티를 위한 강력한 기준점이 되고 3D 장면 편집과 같은 더 많은 미래 애플리케이션을 열 수 있기를 바랍니다.</div>
+                </details>
+            </div>
+            
+            <div class="card paper-card">
+                <div class="card-meta">
+                    <span class="badge paper-badge">cs.CL</span>
+                    <span class="date">2025-11-27</span>
+                </div>
+                <a href="http://arxiv.org/abs/2511.21686v1" target="_blank" class="card-title">Here are a few natural-sounding translations, keeping the technical terms:
+
+**Option 1 (Focus on the function):**
+
+*   Matrix: A Peer-to-Peer Framework for Generating Synthetic Data with Multiple AI Agents.
+
+**Option 2 (Slightly more descriptive):**
+
+*   Matrix: A Peer-to-Peer Framework that Uses Multiple AI Agents to Generate Synthetic Data.
+
+**Option 3 (Emphasizing the connection to AI):**
+
+*   Matrix: A Peer-to-Peer Framework for Synthetic Data Generation, Leveraging Multiple AI Agents.
+
+**Why these work:**
+
+*   **"Peer-to-Peer"** is a relatively common and understandable term, especially in the context of computing.
+*   **"Synthetic Data Generation"** is understood as a process in the world of AI, so we keep it.
+*   The options all try to use natural English around the technical terms for smooth reading.
+*   All options preserve the key technical terms (LLM, Transformer) while providing context.
+
+Choose the one that best fits the surrounding context!</a>
+                <div class="card-author">Dong Wang et al.</div>
+                <details>
+                    <summary>Abstract (Translated)</summary>
+                    <div class="abstract-text">합성 데이터는 대규모 언어 모델(LLM)을 훈련하는 데 점점 더 중요해지고 있습니다. 특히 실제 데이터가 부족하거나, 비용이 많이 들거나, 개인 정보 보호에 민감한 경우에 더욱 그렇습니다. 이러한 데이터 생성 작업 중 상당수는 조정된 다중 에이전트 워크플로우를 필요로 하며, 여기서 전문화된 에이전트들이 협력하여 더 높은 품질, 더 다양한, 그리고 구조적으로 더 풍부한 데이터를 생성합니다. 그러나 기존의 다중 에이전트 합성을 위한 프레임워크는 종종 중앙 집중식 오케스트레이터에 의존하여 확장성 병목 현상을 일으키거나, 특정 도메인에 맞춰 하드코딩되어 유연성을 제한합니다. 저희는 제어 및 데이터 흐름을 분산된 큐를 통해 전달되는 직렬화된 메시지로 표현하는 분산형 프레임워크인 \textbf{Matrix}를 제시합니다. 이 피어 투 피어 설계는 중앙 집중식 오케스트레이터를 제거합니다. 각 작업은 경량 에이전트를 통해 독립적으로 진행되는 반면, LLM 추론이나 컨테이너화된 환경과 같은 컴퓨팅 집약적인 작업은 분산 서비스에서 처리됩니다. Ray를 기반으로 구축된 Matrix는 수만 개의 동시 에이전트 워크플로우로 확장되며, 광범위한 데이터 생성 워크플로우에 쉽게 적응할 수 있는 모듈식의 구성 가능한 설계를 제공합니다. 저희는 Matrix를 다중 에이전트 협업 대화, 웹 기반 추론 데이터 추출, 고객 서비스 환경에서의 도구 사용 궤적 생성과 같은 다양한 합성 시나리오에서 평가했습니다. 모든 경우에 Matrix는 동일한 하드웨어 자원 하에서 출력 품질을 저하시키지 않으면서 $2$--$15\times$ 더 높은 데이터 생성 처리량을 달성했습니다.</div>
+                </details>
+            </div>
+            </div><div class="arxiv-ack">"Thank you to arXiv for use of its open access interoperability."</div></div>
+    <div id="Knowledge" class="tab-content">
+        <div class="knowledge-paper">
+            
+<style>
+    .timeline-container { padding-left: 10px; margin-top: 20px; text-align: left; }
+    .timeline-item { position: relative; padding-left: 30px; padding-bottom: 25px; }
+    .timeline-item::before { content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 100%; background-color: #555; }
+    .timeline-item:last-child { border-left: none; }
+    .timeline-dot { position: absolute; left: -6px; top: 15px; width: 9px; height: 9px; background-color: #1a1a1a; border: 2px solid #999; border-radius: 50%; z-index: 1; }
+    .knowledge-paper details { background: #1a1a1a; border: 1px solid #333; border-radius: 6px; margin-top: 0; padding-top: 0; border-top: 1px solid #333; }
+    .knowledge-paper summary { padding: 10px 15px; font-weight: bold; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: #ddd; font-size: 1em; line-height: 1.2; min-height: 20px; }
+    .knowledge-paper summary::-webkit-details-marker { display: none; }
+    .knowledge-paper summary::after { content: '+'; font-size: 1.2em; color: #777; margin-left: 10px; display: flex; align-items: center; height: 100%; line-height: 1; }
+    .knowledge-paper details[open] summary::after { content: '-'; }
+    .timeline-content { padding: 10px 15px 20px 15px; border-top: 1px solid #2a2a2a; color: #bbb; font-size: 0.9em; line-height: 1.6; }
+    .event-list { margin: 0; padding-left: 18px; }
+    .event-list li { margin-bottom: 6px; }
+    .timeline-content strong { color: #fff; font-weight: 700; }
+</style>
+
+<h3>AI History Timeline</h3>
+<div class="timeline-container">
+    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>1950: AI의 태동</summary><div class="timeline-content"><ul class="event-list"><li><strong>앨런 튜링</strong>, "계산 기계와 지능" 논문 발표 및 튜링 테스트 제안.</li></ul></div></details></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>1956: 용어의 탄생</summary><div class="timeline-content"><ul class="event-list"><li><strong>다트머스 회의</strong> 개최, John McCarthy가 'Artificial Intelligence' 용어 최초 사용.</li></ul></div></details></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2012: 딥러닝 혁명</summary><div class="timeline-content"><ul class="event-list"><li><strong>AlexNet</strong> 이미지넷 우승, CNN 성능 입증.</li></ul></div></details></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2016: 알파고 모멘트</summary><div class="timeline-content"><ul class="event-list"><li>구글 딥마인드 <strong>AlphaGo</strong> vs 이세돌.</li></ul></div></details></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2017: Transformer</summary><div class="timeline-content"><ul class="event-list"><li>구글 "Attention Is All You Need" 논문 발표 (LLM의 시초).</li></ul></div></details></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2022: 생성형 AI (GenAI)</summary><div class="timeline-content"><ul class="event-list"><li>OpenAI <strong>ChatGPT</strong> 공개, Stable Diffusion 등장.</li></ul></div></details></div>
+    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2024: 멀티모달의 시대</summary><div class="timeline-content"><ul class="event-list"><li><strong>GPT-4o, Gemini 1.5</strong> 등 실시간 멀티모달 모델 등장.</li></ul></div></details></div>
+</div>
+
+        </div>
+    </div>
+    <div id="Conferences" class="tab-content"><div class="card-grid">
+        <a href="https://neurips.cc/" target="_blank" class="card link-card">
+            <div class="link-title">NeurIPS ↗</div>
+            <div class="link-desc">Neural Information Processing Systems</div>
+        </a>
+        
+        <a href="https://icml.cc/" target="_blank" class="card link-card">
+            <div class="link-title">ICML ↗</div>
+            <div class="link-desc">International Conference on Machine Learning</div>
+        </a>
+        
+        <a href="https://iclr.cc/" target="_blank" class="card link-card">
+            <div class="link-title">ICLR ↗</div>
+            <div class="link-desc">International Conference on Learning Representations</div>
+        </a>
+        
+        <a href="https://cvpr.thecvf.com/" target="_blank" class="card link-card">
+            <div class="link-title">CVPR ↗</div>
+            <div class="link-desc">Computer Vision and Pattern Recognition</div>
+        </a>
+        
+        <a href="https://aaai.org/" target="_blank" class="card link-card">
+            <div class="link-title">AAAI ↗</div>
+            <div class="link-desc">Assoc. for the Advancement of Artificial Intelligence</div>
+        </a>
+        </div></div><div id="Others" class="tab-content"><div class="card-grid">
+        <a href="https://huggingface.co/" target="_blank" class="card link-card">
+            <div class="link-title">Hugging Face ↗</div>
+            <div class="link-desc">The AI Community Building the Future</div>
+        </a>
+        
+        <a href="https://www.kaggle.com/" target="_blank" class="card link-card">
+            <div class="link-title">Kaggle ↗</div>
+            <div class="link-desc">Data Science Competitions</div>
+        </a>
+        
+        <a href="https://ai.meta.com/research/" target="_blank" class="card link-card">
+            <div class="link-title">Meta ↗</div>
+            <div class="link-desc">RSS 제공 안함</div>
+        </a>
+        
+        <a href="https://www.anthropic.com/research" target="_blank" class="card link-card">
+            <div class="link-title">Anthropic ↗</div>
+            <div class="link-desc">RSS 제공 안함</div>
+        </a>
+        
+        <a href="https://x.ai/news" target="_blank" class="card link-card">
+            <div class="link-title">xAI ↗</div>
+            <div class="link-desc">RSS 제공 안함</div>
+        </a>
+        
+        <a href="https://ai.stanford.edu/blog/" target="_blank" class="card link-card">
+            <div class="link-title">Stanford(SAIL) ↗</div>
+            <div class="link-desc">RSS 제공 안함</div>
+        </a>
+        </div></div>
+            </main>
+
+            <footer></footer>
+        </div>
+
+        <script>
+            function openTab(tabName) {
+                var i;
+                var x = document.getElementsByClassName("tab-content");
+                for (i = 0; i < x.length; i++) {
+                    x[i].classList.remove("active");
+                }
+                document.getElementById(tabName).classList.add("active");
+                
+                var btns = document.getElementsByClassName("tab-btn");
+                for (i = 0; i < btns.length; i++) {
+                    btns[i].classList.remove("active");
+                    var txt = btns[i].innerText;
+                    
+                    if (
+                        (tabName === 'News' && txt.includes('뉴스')) ||
+                        (tabName === 'Papers' && txt.includes('논문')) ||
+                        (tabName === 'Labs' && txt.includes('연구소')) ||
+                        (tabName === 'Conferences' && txt.includes('학회')) ||
+                        (tabName === 'Knowledge' && txt.includes('지식')) ||
+                        (tabName === 'Others' && txt.includes('기타'))
+                    ) {
+                        btns[i].classList.add("active");
+                    }
+                }
+            }
+            openTab('News'); 
+        </script>
+    </body>
+    </html>
+    
