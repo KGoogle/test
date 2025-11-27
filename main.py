@@ -214,13 +214,42 @@ def get_arxiv_papers():
 
     return results
 
-def translate_with_gemini(text):
+def translate_with_gemini(text, field_type='text'):
     if not GOOGLE_API_KEY or not text:
         return text
 
     try:
-        model = genai.GenerativeModel(MODEL_NAME)
-        prompt = f"Translate the following text into Korean naturally, keeping technical AI terms (like LLM, Transformer) intact:\n\n{text}"
+        generation_config = genai.types.GenerationConfig(
+            temperature=0.1
+        )
+        model = genai.GenerativeModel(MODEL_NAME, generation_config=generation_config)
+        
+        if field_type == 'title':
+            prompt = f"""
+            Your role is a professional tech news editor.
+            Translate the following AI research/news title into Korean.
+            
+            Rules:
+            1. Keep it concise and impactful (Headline style). Do not make it a long sentence.
+            2. Do NOT translate specific model names (e.g., Gemini, GPT-4, Llama) or standard acronyms (e.g., LLM, RAG, Transformer).
+            3. Output ONLY the translated text. Do not add explanations.
+            
+            Original Title: "{text}"
+            Translated Korean Title:
+            """
+        else:
+            prompt = f"""
+            Your role is an AI researcher.
+            Translate the following academic abstract/summary into natural, professional Korean.
+            
+            Rules:
+            1. Maintain technical accuracy.
+            2. Keep standard technical terms in English (e.g., Transformer, Diffusion Model, Zero-shot) if the Korean translation is awkward.
+            3. Output ONLY the translated text.
+            
+            Original Text:
+            {text}
+            """
         
         response = model.generate_content(prompt)
         return response.text.strip()
@@ -238,7 +267,9 @@ def process_translation(data_list, fields):
         for field in fields:
             if field in item:
                 original = item[field]
-                translated = translate_with_gemini(original)
+                field_type = 'title' if 'title' in field.lower() else 'text'
+                
+                translated = translate_with_gemini(original, field_type)
                 item[field] = translated
                 time.sleep(4)
 
