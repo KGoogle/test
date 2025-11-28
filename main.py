@@ -9,6 +9,7 @@ import feedparser
 import requests
 import arxiv
 from email.utils import parsedate_to_datetime
+from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 MODEL_NAME = 'gemini-2.0-flash-lite' 
@@ -45,7 +46,8 @@ OTHER_LINKS = [
     {"name": "Meta", "url": "https://ai.meta.com/research/", "desc": "RSS 제공 안함"},
     {"name": "Anthropic", "url": "https://www.anthropic.com/research", "desc": "RSS 제공 안함"},
     {"name": "xAI", "url": "https://x.ai/news", "desc": "RSS 제공 안함"},
-    {"name": "Stanford(SAIL)", "url": "https://ai.stanford.edu/blog/", "desc": "RSS 제공 안함"}
+    {"name": "Stanford(SAIL)", "url": "https://ai.stanford.edu/blog/", "desc": "RSS 제공 안함"},
+    {"name": "MIT(CSAIL)", "url": "https://www.csail.mit.edu/research/?category=Groups", "desc": "RSS 제공 안함"}
 ]
 
 SEARCH_QUERY = 'cat:cs.AI OR cat:cs.LG'
@@ -214,64 +216,105 @@ def get_arxiv_papers():
 
     return results
 
-def translate_with_gemini(text, field_type='text'):
-    if not GOOGLE_API_KEY or not text:
-        return text
+def translate_batch_with_gemini(texts, field_type='text'):
+    if not GOOGLE_API_KEY or not texts:
+        return texts
 
     try:
         generation_config = genai.types.GenerationConfig(
             temperature=0.1
         )
-        model = genai.GenerativeModel(MODEL_NAME, generation_config=generation_config)
         
+        safety_settings = {
+            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+        }
+
+        model = genai.GenerativeModel(
+            MODEL_NAME, 
+            generation_config=generation_config,
+            safety_settings=safety_settings 
+        )
+        
+        separator = " ||| "
+        formatted_text = separator.join(texts)
+
         if field_type == 'title':
             prompt = f"""
-            Your role is a professional tech news editor.
-            Translate the following AI research/news title into Korean.
+            Role: Professional AI Researcher and Translator.
+            Task: Translate the following list of AI research paper titles or blog headlines into Korean.
             
             Rules:
-            1. Keep it concise and impactful (Headline style). Do not make it a long sentence.
-            2. Do NOT translate specific model names (e.g., Gemini, GPT-4, Llama) or standard acronyms (e.g., LLM, RAG, Transformer).
-            3. Output ONLY the translated text. Do not add explanations.
+            1. Output ONLY the translated titles.
+            2. Use the separator "{separator}" between titles exactly as in the input.
+            3. Do NOT add any list numbers (e.g., 1., 2.) at the beginning of lines.
+            4. Keep specific model names (e.g., Gemini, GPT-4, Llama-3) and technical acronyms (LLM, RAG) in English.
+            5. Keep the translation concise and professional.
             
-            Original Title: "{text}"
-            Translated Korean Title:
+            Input Text:
+            {formatted_text}
             """
         else:
             prompt = f"""
-            Your role is an AI researcher.
-            Translate the following academic abstract/summary into natural, professional Korean.
+            Role: Professional AI Researcher.
+            Task: Translate the following list of academic abstracts into natural, professional Korean.
             
             Rules:
-            1. Maintain technical accuracy.
-            2. Keep standard technical terms in English (e.g., Transformer, Diffusion Model, Zero-shot) if the Korean translation is awkward.
-            3. Output ONLY the translated text.
+            1. Output ONLY the translated text blocks.
+            2. Use the separator "{separator}" between abstracts exactly as in the input.
+            3. Maintain technical accuracy. 
+            4. Keep standard technical terms in English if the Korean translation is awkward.
             
-            Original Text:
-            {text}
+            Input Text:
+            {formatted_text}
             """
         
         response = model.generate_content(prompt)
-        return response.text.strip()
+        result_text = response.text.strip()
         
+        translated_list = [t.strip() for t in result_text.split('|||')]
+
+        if len(translated_list) != len(texts):
+            print(f"Warning: Batch size mismatch. Sent {len(texts)}, got {len(translated_list)}. Using original text.")
+            return texts
+            
+        return translated_list
+    
     except Exception as e:
         print(f"Translation Error: {e}")
-        return text
+        return texts
 
 def process_translation(data_list, fields):
     if not GOOGLE_API_KEY:
         return
 
-    print(f"Translating {len(data_list)} items... (It may take a while)")
-    for i, item in enumerate(data_list):
-        for field in fields:
-            if field in item:
-                original = item[field]
-                field_type = 'title' if 'title' in field.lower() else 'text'
+    batch_size = 5
+    print(f"Translating {len(data_list)} items in batches of {batch_size}...")
+
+    for field in fields:
+        field_type = 'title' if 'title' in field.lower() else 'text'
+
+        for i in range(0, len(data_list), batch_size):
+            batch_items = data_list[i : i + batch_size]
+            
+            texts_to_translate = [item.get(field, "") for item in batch_items]
+            
+            valid_items_with_index = [(idx, t) for idx, t in enumerate(texts_to_translate) if t]
+            
+            if valid_items_with_index:
+                valid_indices = [v[0] for v in valid_items_with_index]
+                valid_texts = [v[1] for v in valid_items_with_index]
+
+                translated_texts = translate_batch_with_gemini(valid_texts, field_type)
                 
-                translated = translate_with_gemini(original, field_type)
-                item[field] = translated
-                time.sleep(4)
+                for k, original_idx in enumerate(valid_indices):
+                    if k < len(translated_texts):
+                        batch_items[original_idx][field] = translated_texts[k]
+            
+            print(f" - {field}: Batch {i//batch_size + 1} done.")
+            time.sleep(5)
 
 def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content):
     now_kst = datetime.datetime.now(pytz.timezone('Asia/Seoul')).strftime('%Y-%m-%d %H:%M:%S')
