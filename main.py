@@ -12,7 +12,7 @@ from email.utils import parsedate_to_datetime
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
-MODEL_NAME = 'gemini-2.0-flash-lite' 
+MODEL_NAME = 'gemini-2.5-flash-lite' 
 
 if GOOGLE_API_KEY:
     genai.configure(api_key=GOOGLE_API_KEY)
@@ -76,11 +76,27 @@ KNOWLEDGE_CONTENT = """
 <h3>AI History Timeline</h3>
 <div class="timeline-container">
     <div class="timeline-item"><div class="timeline-dot"></div><details><summary>1950: AI의 태동</summary><div class="timeline-content"><ul class="event-list"><li><strong>앨런 튜링</strong>, "계산 기계와 지능" 논문 발표 및 튜링 테스트 제안.</li></ul></div></details></div>
+    
     <div class="timeline-item"><div class="timeline-dot"></div><details><summary>1956: 용어의 탄생</summary><div class="timeline-content"><ul class="event-list"><li><strong>다트머스 회의</strong> 개최, John McCarthy가 'Artificial Intelligence' 용어 최초 사용.</li></ul></div></details></div>
-    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2012: 딥러닝 혁명</summary><div class="timeline-content"><ul class="event-list"><li><strong>AlexNet</strong> 이미지넷 우승, CNN 성능 입증.</li></ul></div></details></div>
+
+    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>1974: 첫 번째 AI 겨울</summary><div class="timeline-content"><ul class="event-list"><li>기계 번역 등의 성과 부진으로 인한 실망감.</li><li>미국/영국 정부의 연구 <strong>자금 지원 대거 삭감</strong> (Lighthill 리포트).</li></ul></div></details></div>
+
+    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>1986: 연결주의의 부활</summary><div class="timeline-content"><ul class="event-list"><li><strong>제프리 힌튼(Geoffrey Hinton)</strong> 등, '오차 역전파(Backpropagation)' 학습 알고리즘 대중화.</li><li>다층 퍼셉트론(MLP) 학습 가능성 입증.</li></ul></div></details></div>
+
+    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>1987: 두 번째 AI 겨울</summary><div class="timeline-content"><ul class="event-list"><li>비싼 유지비용으로 인한 <strong>전문가 시스템(Expert Systems) 시장 붕괴</strong>.</li><li>Lisp 머신 등 전용 하드웨어 시장의 몰락.</li></ul></div></details></div>
+
+    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>1989: CNN의 기초</summary><div class="timeline-content"><ul class="event-list"><li><strong>얀 르쿤(Yann LeCun)</strong>, 우편번호 판독을 위한 초기 합성곱 신경망(LeNet) 개발.</li><li>현대 컴퓨터 비전 기술의 토대 마련.</li></ul></div></details></div>
+
+    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2012: 딥러닝 혁명</summary><div class="timeline-content"><ul class="event-list"><li>제프리 힌튼 팀의 <strong>AlexNet</strong> 이미지넷 우승, CNN 성능 압도적 입증.</li></ul></div></details></div>
+
     <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2016: 알파고 모멘트</summary><div class="timeline-content"><ul class="event-list"><li>구글 딥마인드 <strong>AlphaGo</strong> vs 이세돌.</li></ul></div></details></div>
+
     <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2017: Transformer</summary><div class="timeline-content"><ul class="event-list"><li>구글 "Attention Is All You Need" 논문 발표 (LLM의 시초).</li></ul></div></details></div>
+
+    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2018: 딥러닝의 대부들</summary><div class="timeline-content"><ul class="event-list"><li><strong>제프리 힌튼, 얀 르쿤, 요수아 벤지오(Yoshua Bengio)</strong>.</li><li>딥러닝 발전에 기여한 공로로 튜링상(Turing Award) 공동 수상.</li></ul></div></details></div>
+
     <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2022: 생성형 AI (GenAI)</summary><div class="timeline-content"><ul class="event-list"><li>OpenAI <strong>ChatGPT</strong> 공개, Stable Diffusion 등장.</li></ul></div></details></div>
+
     <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2024: 멀티모달의 시대</summary><div class="timeline-content"><ul class="event-list"><li><strong>GPT-4o, Gemini 1.5</strong> 등 실시간 멀티모달 모델 등장.</li></ul></div></details></div>
 </div>
 """
@@ -348,7 +364,7 @@ def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content
                 <a href="{paper['url']}" target="_blank" class="card-title">{paper['title']}</a>
                 <div class="card-author">{paper['authors']}</div>
                 <details>
-                    <summary>Abstract (Translated)</summary>
+                    <summary>Abstract</summary>
                     <div class="abstract-text">{paper['abstract']}</div>
                 </details>
             </div>
