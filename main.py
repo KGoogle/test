@@ -130,7 +130,7 @@ KNOWLEDGE_CONTENT = """
 <div class="timeline-item">
     <div class="timeline-dot"></div>
     <details>
-        <summary>1974: 첫 번째 AI 겨울 (1st AI Winter)</summary>
+        <summary>1974: 첫 번째 AI 겨울</summary>
         <div class="timeline-content">
             <ul class="event-list">
                 <li>Perceptron이 XOR 문제를 해결하지 못한다는 한계(Minsky & Papert) 증명.</li>
@@ -169,7 +169,7 @@ KNOWLEDGE_CONTENT = """
 <div class="timeline-item">
     <div class="timeline-dot"></div>
     <details>
-        <summary>1987: 두 번째 AI 겨울 (2nd AI Winter)</summary>
+        <summary>1987: 두 번째 AI 겨울</summary>
         <div class="timeline-content">
             <ul class="event-list">
                 <li>비용 대비 효과 부족으로 <strong>Expert Systems(전문가 시스템)</strong> 시장 붕괴.</li>
