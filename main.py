@@ -75,29 +75,278 @@ KNOWLEDGE_CONTENT = """
 
 <h3>AI History Timeline</h3>
 <div class="timeline-container">
-    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>1950: AI의 태동</summary><div class="timeline-content"><ul class="event-list"><li><strong>앨런 튜링</strong>, "계산 기계와 지능" 논문 발표 및 튜링 테스트 제안.</li></ul></div></details></div>
-    
-    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>1956: 용어의 탄생</summary><div class="timeline-content"><ul class="event-list"><li><strong>다트머스 회의</strong> 개최, John McCarthy가 'Artificial Intelligence' 용어 최초 사용.</li></ul></div></details></div>
+    <div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>1950: AI의 태동</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li><strong>앨런 튜링(Alan Turing)</strong>, 'Computing Machinery and Intelligence' 논문 발표.</li>
+                <li>기계의 지능을 판별하는 기준인 <strong>Turing Test</strong> 제안.</li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>1974: 첫 번째 AI 겨울</summary><div class="timeline-content"><ul class="event-list"><li>기계 번역 등의 성과 부진으로 인한 실망감.</li><li>미국/영국 정부의 연구 <strong>자금 지원 대거 삭감</strong> (Lighthill 리포트).</li></ul></div></details></div>
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>1956: 용어의 탄생</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li><strong>다트머스 회의(Dartmouth Workshop)</strong> 개최.</li>
+                <li><strong>존 매카시(John McCarthy)</strong>가 'Artificial Intelligence'라는 용어를 최초로 사용.</li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>1986: 연결주의의 부활</summary><div class="timeline-content"><ul class="event-list"><li><strong>제프리 힌튼(Geoffrey Hinton)</strong> 등, '오차 역전파(Backpropagation)' 학습 알고리즘 대중화.</li><li>다층 퍼셉트론(MLP) 학습 가능성 입증.</li></ul></div></details></div>
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>1958: 신경망의 시초</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li><strong>프랭크 로젠블라트(Frank Rosenblatt)</strong>, 초기 인공신경망인 <strong>Perceptron</strong> 고안.</li>
+                <li>학습을 통해 기계가 패턴을 인식할 수 있는 가능성 제시.</li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>1987: 두 번째 AI 겨울</summary><div class="timeline-content"><ul class="event-list"><li>비싼 유지비용으로 인한 <strong>전문가 시스템(Expert Systems) 시장 붕괴</strong>.</li><li>Lisp 머신 등 전용 하드웨어 시장의 몰락.</li></ul></div></details></div>
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>1966: 최초의 챗봇 ELIZA</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li>MIT의 <strong>요제프 바이트첸바움(Joseph Weizenbaum)</strong>이 개발한 심리 상담 프로그램.</li>
+                <li>단순한 패턴 매칭만으로도 인간이 기계와 정서적 교감을 나눌 수 있음을 보여줌(Eliza Effect).</li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>1989: CNN의 기초</summary><div class="timeline-content"><ul class="event-list"><li><strong>얀 르쿤(Yann LeCun)</strong>, 우편번호 판독을 위한 초기 합성곱 신경망(LeNet) 개발.</li><li>현대 컴퓨터 비전 기술의 토대 마련.</li></ul></div></details></div>
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>1974: 첫 번째 AI 겨울 (1st AI Winter)</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li>Perceptron이 XOR 문제를 해결하지 못한다는 한계(Minsky & Papert) 증명.</li>
+                <li>미국/영국 정부의 연구 자금 대거 삭감(Lighthill Report)으로 인한 침체기.</li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2012: 딥러닝 혁명</summary><div class="timeline-content"><ul class="event-list"><li>제프리 힌튼 팀의 <strong>AlexNet</strong> 이미지넷 우승, CNN 성능 압도적 입증.</li></ul></div></details></div>
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>1982: 물리학과 AI (홉필드 네트워크)</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li><strong>존 홉필드(John Hopfield)</strong>, 통계 물리학의 원리를 응용한 연상 기억 모델 제안.</li>
+                <li>신경망이 에너지 함수를 최소화하는 방식으로 최적화될 수 있음을 수학적으로 증명(2024 노벨 물리학상의 배경).</li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2016: 알파고 모멘트</summary><div class="timeline-content"><ul class="event-list"><li>구글 딥마인드 <strong>AlphaGo</strong> vs 이세돌.</li></ul></div></details></div>
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>1986: 연결주의의 부활</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li><strong>제프리 힌튼(Geoffrey Hinton)</strong> 등, <strong>Backpropagation(오차 역전파)</strong> 알고리즘 대중화.</li>
+                <li>다층 퍼셉트론(MLP) 학습이 가능해지며 신경망 연구 재점화.</li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2017: Transformer</summary><div class="timeline-content"><ul class="event-list"><li>구글 "Attention Is All You Need" 논문 발표 (LLM의 시초).</li></ul></div></details></div>
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>1987: 두 번째 AI 겨울 (2nd AI Winter)</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li>비용 대비 효과 부족으로 <strong>Expert Systems(전문가 시스템)</strong> 시장 붕괴.</li>
+                <li>전용 하드웨어인 Lisp Machine의 몰락과 PC의 보급.</li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2018: 딥러닝의 대부들</summary><div class="timeline-content"><ul class="event-list"><li><strong>제프리 힌튼, 얀 르쿤, 요수아 벤지오(Yoshua Bengio)</strong>.</li><li>딥러닝 발전에 기여한 공로로 튜링상(Turing Award) 공동 수상.</li></ul></div></details></div>
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>1989: CNN의 기초</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li><strong>얀 르쿤(Yann LeCun)</strong>, 우편번호 판독을 위한 초기 합성곱 신경망 <strong>LeNet</strong> 개발.</li>
+                <li>현대 Computer Vision 및 Deep Learning 기술의 토대 마련.</li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2022: 생성형 AI (GenAI)</summary><div class="timeline-content"><ul class="event-list"><li>OpenAI <strong>ChatGPT</strong> 공개, Stable Diffusion 등장.</li></ul></div></details></div>
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>1997: Deep Blue의 승리</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li>IBM의 <strong>Deep Blue</strong>가 세계 체스 챔피언 가리 카스파로프(Garry Kasparov)에게 승리.</li>
+                <li>연산 능력에 기반한 '기호주의 AI'의 상징적 성과.</li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-    <div class="timeline-item"><div class="timeline-dot"></div><details><summary>2024: 멀티모달의 시대</summary><div class="timeline-content"><ul class="event-list"><li><strong>GPT-4o, Gemini 1.5</strong> 등 실시간 멀티모달 모델 등장.</li></ul></div></details></div>
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>2006: Deep Learning의 재정립</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li><strong>제프리 힌튼(Geoffrey Hinton)</strong>, 심층 신뢰 신경망(DBN) 논문 발표.</li>
+                <li>기존 신경망의 한계를 극복하며 <strong>Deep Learning</strong>이라는 용어를 본격적으로 사용하기 시작.</li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>2009: 데이터 중심 AI (ImageNet)</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li><strong>페이페이 리(Fei-Fei Li)</strong> 교수팀, 1,400만 장 이상의 라벨링된 이미지 데이터셋 <strong>ImageNet</strong> 공개.</li>
+                <li>데이터의 양과 질이 알고리즘 성능을 결정한다는 사실을 입증하며 딥러닝 혁명의 필수 기반 마련.</li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>2012: Deep Learning 혁명</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li>제프리 힌튼 연구팀의 <strong>AlexNet</strong>이 이미지넷(ImageNet) 경진대회 우승.</li>
+                <li>GPU를 활용한 압도적인 성능 차이로 현대적 AI 시대 개막.</li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>2014: 생성형 AI의 씨앗 (GAN)</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li><strong>이안 굿펠로우(Ian Goodfellow)</strong>, '적대적 생성 신경망(GAN)' 발표.</li>
+                <li>생성자(Generator)와 판별자(Discriminator)의 경쟁 학습 방식을 도입하여 이미지 생성 기술의 비약적 발전 유도.</li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>2016: 알파고 모멘트</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li>Google DeepMind의 <strong>AlphaGo</strong> vs 이세돌 9단 대국.</li>
+                <li>강화학습(Reinforcement Learning)과 딥러닝의 결합이 보여준 충격.</li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>2017: Transformer의 등장</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li>Google, 'Attention Is All You Need' 논문 발표 및 <strong>Transformer</strong> 아키텍처 제안.</li>
+                <li>RNN을 대체하며 현대 거대언어모델(LLM)의 기술적 기원 확립.</li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>2018: AI의 거장들 (Turing Award)</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li><strong>제프리 힌튼, 얀 르쿤, 요수아 벤지오(Yoshua Bengio)</strong> 공동 수상.</li>
+                <li>Deep Learning 발전에 기여한 공로로 '컴퓨터 과학의 노벨상'인 튜링상 수상.</li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>2020: 거대언어모델(LLM)의 도약</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li>OpenAI, <strong>GPT-3</strong> 공개 (1,750억 개 파라미터).</li>
+                <li>별도의 튜닝 없이 소량의 예시만으로 과제를 수행하는 'Few-shot Learning' 능력 입증.</li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>2020: AI for Science (AlphaFold 2)</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li>DeepMind의 <strong>AlphaFold 2</strong>가 '단백질 구조 예측 학술 대회(CASP14)'에서 압도적 1위 달성.</li>
+                <li>50년 난제였던 단백질 접힘 문제를 해결하며 AI가 순수 과학 난제를 해결할 수 있음을 증명(2024 노벨 화학상의 배경).</li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>2022: 생성형 AI (GenAI) 대중화</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li>OpenAI <strong>ChatGPT</strong> 공개 및 Stable Diffusion 등장.</li>
+                <li>대화형 인터페이스를 통해 대중이 AI를 일상적으로 사용하는 계기 마련.</li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <details>
+        <summary>2024: 멀티모달과 노벨상</summary>
+        <div class="timeline-content">
+            <ul class="event-list">
+                <li><strong>GPT-4o, Gemini 1.5</strong> 등 텍스트, 음성, 영상을 실시간 처리하는 Multimodal 모델 경쟁.</li>
+                <li><strong>존 홉필드, 제프리 힌튼</strong>(노벨 물리학상) 및 <strong>데미스 하사비스</strong>(노벨 화학상) 수상으로 AI의 과학적 공로 인정.</li>
+            </ul>
+        </div>
+    </details>
+</div>
 </div>
 """
 
