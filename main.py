@@ -3,6 +3,7 @@ import os
 import time
 import re
 import pytz
+import json
 from time import mktime
 import google.generativeai as genai
 import feedparser
@@ -72,323 +73,49 @@ KNOWLEDGE_CONTENT = """
     .event-list li { margin-bottom: 6px; }
     .timeline-content strong { color: #fff; font-weight: 700; }
 </style>
-
-<h3>AI History Timeline</h3>
-<div class="timeline-container">
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>1948: AI의 전조 (사이버네틱스)</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li><strong>노버트 위너(Norbert Wiener)</strong>, 동물과 기계의 통제 및 통신 이론인 <strong>Cybernetics</strong> 출간.</li>
-                    <li>생물학적 뇌 구조를 기계적으로 모방하려는 1940년대의 시도로, 현대 AI 연구의 중요한 뿌리가 됨.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>1950: AI의 태동</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li><strong>앨런 튜링(Alan Turing)</strong>, 'Computing Machinery and Intelligence' 논문 발표.</li>
-                    <li>기계의 지능을 판별하는 기준인 <strong>Turing Test</strong> 제안.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>1956: 용어의 탄생</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li><strong>다트머스 회의(Dartmouth Workshop)</strong> 개최.</li>
-                    <li><strong>존 매카시(John McCarthy)</strong>가 'Artificial Intelligence'라는 용어를 최초로 사용.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>1958: 신경망의 시초</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li><strong>프랭크 로젠블라트(Frank Rosenblatt)</strong>, 초기 인공신경망인 <strong>Perceptron</strong> 고안.</li>
-                    <li>학습을 통해 기계가 패턴을 인식할 수 있는 가능성 제시.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>1966: 최초의 챗봇 ELIZA</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li>MIT의 <strong>요제프 바이트첸바움(Joseph Weizenbaum)</strong>이 개발한 심리 상담 프로그램.</li>
-                    <li>단순한 패턴 매칭만으로도 인간이 기계와 정서적 교감을 나눌 수 있음을 보여줌(Eliza Effect).</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>1974: 첫 번째 AI 겨울</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li>Perceptron이 XOR 문제를 해결하지 못한다는 한계(Minsky & Papert) 증명.</li>
-                    <li>미국/영국 정부의 연구 자금 대거 삭감(Lighthill Report)으로 인한 침체기.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <!-- 추가됨: 1980s 퍼지 이론 -->
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>1980s: 퍼지 이론과 가전 혁명</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li>딥러닝 이전, <strong>퍼지 제어(Fuzzy Control)</strong> 기술이 세탁기, 밥솥 등 가전제품의 주류로 부상.</li>
-                    <li>인간의 애매모호한 언어 표현을 수학적으로 처리하며 산업계에서 실질적으로 활용된 AI 사례.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>1982: 물리학과 AI (홉필드 네트워크)</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li><strong>존 홉필드(John Hopfield)</strong>, 통계 물리학의 원리를 응용한 연상 기억 모델 제안.</li>
-                    <li>신경망이 에너지 함수를 최소화하는 방식으로 최적화될 수 있음을 수학적으로 증명(2024 노벨 물리학상의 배경).</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>1986: 연결주의의 부활</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li><strong>제프리 힌튼(Geoffrey Hinton)</strong> 등, <strong>Backpropagation(오차 역전파)</strong> 알고리즘 대중화.</li>
-                    <li>다층 퍼셉트론(MLP) 학습이 가능해지며 신경망 연구 재점화.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>1987: 두 번째 AI 겨울</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li>비용 대비 효과 부족으로 <strong>Expert Systems(전문가 시스템)</strong> 시장 붕괴.</li>
-                    <li>전용 하드웨어인 Lisp Machine의 몰락과 PC의 보급.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>1989: CNN의 기초</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li><strong>얀 르쿤(Yann LeCun)</strong>, 우편번호 판독을 위한 초기 합성곱 신경망 <strong>LeNet</strong> 개발.</li>
-                    <li>현대 Computer Vision 및 Deep Learning 기술의 토대 마련.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>1997: Deep Blue의 승리</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li>IBM의 <strong>Deep Blue</strong>가 세계 체스 챔피언 가리 카스파로프(Garry Kasparov)에게 승리.</li>
-                    <li>연산 능력에 기반한 '기호주의 AI'의 상징적 성과.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>2006: Deep Learning의 재정립</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li><strong>제프리 힌튼(Geoffrey Hinton)</strong>, 심층 신뢰 신경망(DBN) 논문 발표.</li>
-                    <li>기존 신경망의 한계를 극복하며 <strong>Deep Learning</strong>이라는 용어를 본격적으로 사용하기 시작.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>2009: 데이터 중심 AI (ImageNet)</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li><strong>페이페이 리(Fei-Fei Li)</strong> 교수팀, 1,400만 장 이상의 라벨링된 이미지 데이터셋 <strong>ImageNet</strong> 공개.</li>
-                    <li>데이터의 양과 질이 알고리즘 성능을 결정한다는 사실을 입증하며 딥러닝 혁명의 필수 기반 마련.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>2011: IBM Watson의 퀴즈 제패</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li>IBM의 <strong>Watson</strong>이 퀴즈 쇼 'Jeopardy!'에서 인간 챔피언들을 꺾고 우승.</li>
-                    <li>자연어 처리(NLP) 기술을 통해 인간의 언어를 이해하고 답하는 AI의 가능성을 대중에게 각인.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>2012: Deep Learning 혁명</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li>제프리 힌튼 연구팀의 <strong>AlexNet</strong>이 이미지넷(ImageNet) 경진대회 우승.</li>
-                    <li>GPU를 활용한 압도적인 성능 차이로 현대적 AI 시대 개막.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>2014: 생성형 AI의 씨앗 (GAN)</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li><strong>이안 굿펠로우(Ian Goodfellow)</strong>, '적대적 생성 신경망(GAN)' 발표.</li>
-                    <li>생성자(Generator)와 판별자(Discriminator)의 경쟁 학습 방식을 도입하여 이미지 생성 기술의 비약적 발전 유도.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>2016: 알파고 모멘트</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li>Google DeepMind의 <strong>AlphaGo</strong> vs 이세돌 9단 대국.</li>
-                    <li>강화학습(Reinforcement Learning)과 딥러닝의 결합이 보여준 충격.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>2017: Transformer의 등장</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li>Google, 'Attention Is All You Need' 논문 발표 및 <strong>Transformer</strong> 아키텍처 제안.</li>
-                    <li>RNN을 대체하며 현대 거대언어모델(LLM)의 기술적 기원 확립.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>2018: AI의 거장들 (Turing Award)</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li><strong>제프리 힌튼, 얀 르쿤, 요수아 벤지오(Yoshua Bengio)</strong> 공동 수상.</li>
-                    <li>Deep Learning 발전에 기여한 공로로 '컴퓨터 과학의 노벨상'인 튜링상 수상.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>2020: 거대언어모델(LLM)의 도약</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li>OpenAI, <strong>GPT-3</strong> 공개 (1,750억 개 파라미터).</li>
-                    <li>별도의 튜닝 없이 소량의 예시만으로 과제를 수행하는 'Few-shot Learning' 능력 입증.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>2020: AI for Science (AlphaFold 2)</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li>DeepMind의 <strong>AlphaFold 2</strong>가 '단백질 구조 예측 학술 대회(CASP14)'에서 압도적 1위 달성.</li>
-                    <li>50년 난제였던 단백질 접힘 문제를 해결하며 AI가 순수 과학 난제를 해결할 수 있음을 증명.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>2022: 생성형 AI (GenAI) 대중화</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li>OpenAI <strong>ChatGPT</strong> 공개 및 Stable Diffusion 등장.</li>
-                    <li>대화형 인터페이스를 통해 대중이 AI를 일상적으로 사용하는 계기 마련.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <details>
-            <summary>2024: 멀티모달과 노벨상</summary>
-            <div class="timeline-content">
-                <ul class="event-list">
-                    <li><strong>GPT-4o, Gemini 1.5</strong> 등 텍스트, 음성, 영상을 실시간 처리하는 Multimodal 모델 경쟁.</li>
-                    <li><strong>존 홉필드, 제프리 힌튼</strong>(노벨 물리학상) 및 <strong>데미스 하사비스</strong>(노벨 화학상) 수상으로 AI의 과학적 공로 인정.</li>
-                </ul>
-            </div>
-        </details>
-    </div>
-</div>
 """
+def load_and_generate_knowledge():
+    db_path = 'knowledge_db.json'
+    
+    if not os.path.exists(db_path):
+        print(f"Warning: {db_path} not found.")
+        return KNOWLEDGE_CONTENT + "<h3>Knowledge DB not found.</h3>"
+
+    try:
+        with open(db_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    except Exception as e:
+        print(f"Error reading knowledge DB: {e}")
+        return KNOWLEDGE_CONTENT + f"<h3>Error loading Knowledge DB: {e}</h3>"
+
+    html_parts = [KNOWLEDGE_CONTENT, '<h3>AI History Timeline</h3>', '<div class="timeline-container">']
+    
+    for item in data:
+        summary = item.get('summary', 'No Title')
+        events = item.get('events', [])
+        
+        events_html = '<ul class="event-list">'
+        for event in events:
+            title = event.get('title', '')
+            desc = event.get('desc', '')
+            events_html += f'<li><strong>{title}</strong><br>{desc}</li>'
+        events_html += '</ul>'
+
+        item_html = f"""
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <details>
+                <summary>{summary}</summary>
+                <div class="timeline-content">
+                    {events_html}
+                </div>
+            </details>
+        </div>
+        """
+        html_parts.append(item_html)
+    
+    html_parts.append('</div>')
+    return "".join(html_parts)
 
 def clean_html(raw_html):
     cleanr = re.compile('<.*?>')
@@ -840,6 +567,7 @@ def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content
 if __name__ == "__main__":
     rss_data = collect_rss_data()
     paper_data = get_arxiv_papers()
+    knowledge_content = load_and_generate_knowledge()
 
     if GOOGLE_API_KEY:
         if 'Labs' in rss_data:
@@ -849,7 +577,7 @@ if __name__ == "__main__":
             print(" - 논문(Papers) 초록 번역 중...")
             process_translation(paper_data, ['title', 'abstract'])
 
-    html_out = create_html(rss_data, paper_data, CONFERENCE_LINKS, OTHER_LINKS, KNOWLEDGE_CONTENT)
+    html_out = create_html(rss_data, paper_data, CONFERENCE_LINKS, OTHER_LINKS, knowledge_content)
     
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_out)
