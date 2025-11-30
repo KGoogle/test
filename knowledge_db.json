@@ -1,0 +1,351 @@
+[
+  {
+    "summary": "Universe: 지능의 본질과 탐구",
+    "events": [
+      {
+        "title": "지능이란?",
+        "desc": "지능은 구성 개념이므로 완벽한 정의는 없지만 일반적으로 정보에 대해 적응,학습,활용하는 지적 능력을 말한다. 인간은 자신의 생각과 기억을 개인의 뇌로만 사용하지 않는다. 언어로 타인과 생각을 나누고, 기록을 남기며, 도구를 사용하는 것은 인간이 지식을 활용하는 가장 자연스러운 본능이다."
+      }
+    ]
+  },
+  {
+    "summary": "Pre-History: 알고리즘의 씨앗",
+    "events": [
+      {
+        "title": "데이터화",
+        "desc": "실재하는 사물을 언어, 벽화, 기호로 변환하여 처리하기 시작함. 물리적 세상을 '데이터'로 치환하는 가장 기초적인 방식."
+      },
+      {
+        "title": "하드웨어",
+        "desc": "뇌의 한계를 극복하기 위해 기억과 계산을 외부 물리적 매체(돌, 매듭, 손가락)를 사용함. '연산과 메모리'의 원시적 형태."
+      }
+    ]
+  },
+  {
+    "summary": "B.C. 3000 ~ 18C: AI의 꿈",
+    "events": [
+      {
+        "title": "기원전 3000년경 (바빌로니아)",
+        "desc": "주판(Abacus) 등장. 인간의 지적 노동(계산)을 도구로 보조하려는 최초의 시도."
+      },
+      {
+        "title": "고대 ~ 중세",
+        "desc": "오토마타(Automata). 스스로 움직이는 기계 인형에 대한 꿈이 이어짐. (찰스 배비지에게 영감을 줌)"
+      },
+      {
+        "title": "17세기 (파스칼 & 라이프니츠)",
+        "desc": "기계식 계산기의 발명으로 인간의 사고 과정을 기계적으로 구현할 수 있다는 '기호주의'적 사상의 씨앗이 됨."
+      }
+    ]
+  },
+  {
+    "summary": "1823: 차분기관 (Difference Engine)",
+    "events": [
+      {
+        "title": "찰스 배비지(Charles Babbage)",
+        "desc": "다항함수 계산을 위한 기계 장치 설계 시작."
+      },
+      {
+        "title": "목적",
+        "desc": "사람이 작성한 수치 계산표(로그, 삼각함수 등)의 오류를 없애기 위한 시도."
+      },
+      {
+        "title": "한계",
+        "desc": "영국 정부의 막대한 지원을 받았으나 당시 기술적 한계로 완성되지 못함."
+      }
+    ]
+  },
+  {
+    "summary": "1834: 현대 컴퓨터의 청사진 (Analytical Engine)",
+    "events": [
+      {
+        "title": "찰스 배비지",
+        "desc": "범용성을 가진 해석기관 설계."
+      },
+      {
+        "title": "기능",
+        "desc": "천공 카드(Punch Card)를 이용한 프로그래밍, 조건 분기, 반복문 개념 도입."
+      },
+      {
+        "title": "의의",
+        "desc": "현대 컴퓨터의 4대 요소(입력, 출력, 연산, 저장)를 100년 앞서 구현하려 했던 '컴퓨터의 아버지'."
+      }
+    ]
+  },
+  {
+    "summary": "1948: AI의 전조",
+    "events": [
+      {
+        "title": "노버트 위너(Norbert Wiener)",
+        "desc": "동물과 기계의 통제 및 통신 이론인 Cybernetics 출간. 생물학적 뇌 구조를 기계적으로 모방하려는 1940년대의 시도로, 현대 AI 연구의 중요한 뿌리가 됨."
+      }
+    ]
+  },
+  {
+    "summary": "1950: AI의 태동",
+    "events": [
+      {
+        "title": "앨런 튜링(Alan Turing)",
+        "desc": "'Computing Machinery and Intelligence' 논문 발표. 기계의 지능을 판별하는 기준인 Turing Test 제안."
+      }
+    ]
+  },
+  {
+    "summary": "1956: 용어의 탄생",
+    "events": [
+      {
+        "title": "다트머스 회의(Dartmouth Workshop)",
+        "desc": "존 매카시(John McCarthy)가 'Artificial Intelligence'라는 용어를 최초로 사용."
+      }
+    ]
+  },
+  {
+    "summary": "1958: 신경망의 시초",
+    "events": [
+      {
+        "title": "프랭크 로젠블라트(Frank Rosenblatt)",
+        "desc": "초기 인공신경망인 Perceptron 고안. 학습을 통해 기계가 패턴을 인식할 수 있는 가능성 제시."
+      }
+    ]
+  },
+  {
+    "summary": "1966: 최초의 챗봇 ELIZA",
+    "events": [
+      {
+        "title": "요제프 바이트첸바움(Joseph Weizenbaum)",
+        "desc": "MIT에서 개발한 심리 상담 프로그램. 단순한 패턴 매칭만으로도 인간이 기계와 정서적 교감을 나눌 수 있음을 보여줌(Eliza Effect)."
+      }
+    ]
+  },
+  {
+    "summary": "1974: 첫 번째 AI 겨울",
+    "events": [
+      {
+        "title": "Minsky & Papert",
+        "desc": "Perceptron이 XOR 문제를 해결하지 못한다는 한계 증명."
+      },
+      {
+        "title": "Lighthill Report",
+        "desc": "미국/영국 정부의 연구 자금 대거 삭감으로 인한 침체기."
+      }
+    ]
+  },
+  {
+    "summary": "1980s: 퍼지 이론과 가전 혁명",
+    "events": [
+      {
+        "title": "퍼지 제어(Fuzzy Control)",
+        "desc": "딥러닝 이전, 세탁기, 밥솥 등 가전제품의 주류로 부상."
+      },
+      {
+        "title": "특징",
+        "desc": "인간의 애매모호한 언어 표현을 수학적으로 처리하며 산업계에서 실질적으로 활용된 AI 사례."
+      }
+    ]
+  },
+  {
+    "summary": "1982: 물리학과 AI (홉필드 네트워크)",
+    "events": [
+      {
+        "title": "존 홉필드(John Hopfield)",
+        "desc": "통계 물리학의 원리를 응용한 연상 기억 모델 제안. 신경망이 에너지 함수를 최소화하는 방식으로 최적화될 수 있음을 수학적으로 증명(2024 노벨 물리학상의 배경)."
+      }
+    ]
+  },
+  {
+    "summary": "1986: 연결주의의 부활",
+    "events": [
+      {
+        "title": "제프리 힌튼(Geoffrey Hinton)",
+        "desc": "Backpropagation(오차 역전파) 알고리즘 대중화. 다층 퍼셉트론(MLP) 학습이 가능해지며 신경망 연구 재점화."
+      }
+    ]
+  },
+  {
+    "summary": "1987: 두 번째 AI 겨울",
+    "events": [
+      {
+        "title": "Expert Systems의 붕괴",
+        "desc": "비용 대비 효과 부족으로 시장 붕괴. 전용 하드웨어인 Lisp Machine의 몰락과 PC의 보급."
+      }
+    ]
+  },
+  {
+    "summary": "1989: CNN의 기초",
+    "events": [
+      {
+        "title": "얀 르쿤(Yann LeCun)",
+        "desc": "우편번호 판독을 위한 초기 합성곱 신경망 LeNet 개발. 현대 Computer Vision 및 Deep Learning 기술의 토대 마련."
+      }
+    ]
+  },
+  {
+    "summary": "1997: Deep Blue의 승리",
+    "events": [
+      {
+        "title": "IBM Deep Blue",
+        "desc": "세계 체스 챔피언 가리 카스파로프(Garry Kasparov)에게 승리. 연산 능력에 기반한 '기호주의 AI'의 상징적 성과."
+      }
+    ]
+  },
+  {
+    "summary": "2006: Deep Learning의 재정립",
+    "events": [
+      {
+        "title": "제프리 힌튼(Geoffrey Hinton)",
+        "desc": "심층 신뢰 신경망(DBN) 논문 발표. 기존 신경망의 한계를 극복하며 Deep Learning이라는 용어를 본격적으로 사용하기 시작."
+      }
+    ]
+  },
+  {
+    "summary": "2009: 데이터 중심 AI (ImageNet)",
+    "events": [
+      {
+        "title": "페이페이 리(Fei-Fei Li)",
+        "desc": "1,400만 장 이상의 라벨링된 이미지 데이터셋 ImageNet 공개. 데이터의 양과 질이 알고리즘 성능을 결정한다는 사실을 입증하며 딥러닝 혁명의 필수 기반 마련."
+      }
+    ]
+  },
+  {
+    "summary": "2010: DeepMind 창립",
+    "events": [
+      {
+        "title": "데미스 하사비스(Demis Hassabis)",
+        "desc": "런던에서 설립. '지능을 해결하여 모든 것을 해결한다(Solve Intelligence)'는 비전으로 AGI 연구 시작. 훗날 Google에 인수(2014)됨."
+      }
+    ]
+  },
+  {
+    "summary": "2011: IBM Watson의 퀴즈 제패",
+    "events": [
+      {
+        "title": "IBM Watson",
+        "desc": "퀴즈 쇼 'Jeopardy!'에서 인간 챔피언들을 꺾고 우승. 자연어 처리(NLP) 기술을 통해 인간의 언어를 이해하고 답하는 AI의 가능성을 대중에게 각인."
+      }
+    ]
+  },
+  {
+    "summary": "2012: Deep Learning 혁명",
+    "events": [
+      {
+        "title": "AlexNet",
+        "desc": "제프리 힌튼 연구팀이 이미지넷(ImageNet) 경진대회 우승. GPU를 활용한 압도적인 성능 차이로 현대적 AI 시대 개막."
+      }
+    ]
+  },
+  {
+    "summary": "2014: 생성형 AI의 씨앗 (GAN)",
+    "events": [
+      {
+        "title": "이안 굿펠로우(Ian Goodfellow)",
+        "desc": "'적대적 생성 신경망(GAN)' 발표. 생성자(Generator)와 판별자(Discriminator)의 경쟁 학습 방식을 도입하여 이미지 생성 기술의 비약적 발전 유도."
+      }
+    ]
+  },
+  {
+    "summary": "2015: OpenAI 설립",
+    "events": [
+      {
+        "title": "배경",
+        "desc": "구글의 딥마인드 인수에 따른 기술 독점을 견제하기 위해, 일론 머스크와 샘 알트만이 의기투합하여 시작됨."
+      },
+      {
+        "title": "목표",
+        "desc": "일리야 수츠케버(Ilya Sutskever) 등을 영입하여 '인류 모두에게 이익이 되는 안전한 AI'를 목표로 하는 비영리 연구소로 출범."
+      }
+    ]
+  },
+  {
+    "summary": "2016: 알파고 모멘트",
+    "events": [
+      {
+        "title": "AlphaGo",
+        "desc": "Google DeepMind의 AlphaGo vs 이세돌 9단 대국. 강화학습(Reinforcement Learning)과 딥러닝의 결합이 보여준 충격."
+      }
+    ]
+  },
+  {
+    "summary": "2017: Transformer의 등장",
+    "events": [
+      {
+        "title": "Attention Is All You Need",
+        "desc": "Google이 Transformer 아키텍처 제안. RNN을 대체하며 현대 거대언어모델(LLM)의 기술적 기원 확립."
+      }
+    ]
+  },
+  {
+    "summary": "2018: AI의 거장들 (Turing Award)",
+    "events": [
+      {
+        "title": "수상자",
+        "desc": "제프리 힌튼, 얀 르쿤, 요수아 벤지오(Yoshua Bengio) 공동 수상. Deep Learning 발전에 기여한 공로로 '컴퓨터 과학의 노벨상'인 튜링상 수상."
+      }
+    ]
+  },
+  {
+    "summary": "2020: LLM의 도약과 과학 AI",
+    "events": [
+      {
+        "title": "LLM (GPT-3)",
+        "desc": "OpenAI가 1,750억 개 파라미터 모델을 공개. 별도의 튜닝 없이 소량의 예시만으로 과제를 수행하는 'Few-shot Learning' 능력 입증."
+      },
+      {
+        "title": "과학 AI (AlphaFold 2)",
+        "desc": "DeepMind가 '단백질 구조 예측 대회(CASP14)'에서 우승하며, 50년 난제였던 단백질 접힘 문제를 해결해 순수 과학 분야에서의 효용성 증명."
+      }
+    ]
+  },
+  {
+    "summary": "2021: Anthropic 설립",
+    "events": [
+      {
+        "title": "다리오 아모데이(Dario Amodei)",
+        "desc": "OpenAI의 상업화와 안전성 우려로 연구원들이 집단 퇴사하여 설립. 해석 가능하고 통제 가능한 AI(Claude) 개발 목표."
+      }
+    ]
+  },
+  {
+    "summary": "2022: 생성형 AI (GenAI) 대중화",
+    "events": [
+      {
+        "title": "ChatGPT & Stable Diffusion",
+        "desc": "대화형 인터페이스와 이미지 생성 모델을 통해 대중이 AI를 일상적으로 사용하는 계기 마련."
+      }
+    ]
+  },
+  {
+    "summary": "2023: xAI 설립",
+    "events": [
+      {
+        "title": "일론 머스크(Elon Musk)",
+        "desc": "'우주의 진정한 본질을 이해한다'는 목표로 설립. 기존 AI 모델들의 편향성을 비판하며 진실 추구(Truth-seeking) AI를 표방하는 Grok 출시."
+      }
+    ]
+  },
+  {
+    "summary": "2024: 멀티모달과 노벨상",
+    "events": [
+      {
+        "title": "멀티모달 (Multimodal)",
+        "desc": "GPT-4o, Gemini 1.5 등 텍스트, 음성, 영상을 실시간 처리하는 모델 경쟁."
+      },
+      {
+        "title": "노벨상 수상",
+        "desc": "존 홉필드, 제프리 힌튼(노벨 물리학상) 및 데미스 하사비스(노벨 화학상) 수상으로 AI의 과학적 공로 인정."
+      }
+    ]
+  },
+  {
+    "summary": "2025: 추론과 행동의 시대",
+    "events": [
+      {
+        "title": "추론 모델 (Reasoning Models)",
+        "desc": "OpenAI o1/o3, DeepSeek-R1 등 '생각의 사슬(Chain of Thought)'을 통해 복잡한 문제를 해결하는 AI의 확산."
+      },
+      {
+        "title": "Agentic AI",
+        "desc": "AI가 단순히 질문에 답하는 것을 넘어, 스스로 계획을 세우고 도구를 사용해 작업을 완수하는 '에이전트'로 진화."
+      }
+    ]
+  }
+]
