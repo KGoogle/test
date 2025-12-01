@@ -350,7 +350,71 @@ def process_translation(data_list, fields):
 
 def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content):
     now_kst = datetime.datetime.now(pytz.timezone('Asia/Seoul')).strftime('%Y-%m-%d %H:%M:%S')
-    
+    # [삭제_START]
+    DEV_LOG_WIDGET = """
+    <style>
+        .dev-btn {
+            position: absolute; top: 15px; right: 20px;
+            background: rgba(255, 255, 255, 0.1); border: 1px solid #444; color: #888;
+            padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 12px;
+            transition: all 0.2s; z-index: 9999; text-decoration: none;
+        }
+        .dev-btn:hover { background: #333; color: #fff; border-color: #666; }
+        
+        .dev-modal {
+            display: none; position: fixed; z-index: 10000; left: 0; top: 0;
+            width: 100%; height: 100%; overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center; align-items: center;
+        }
+        
+        .dev-modal-content {
+            background-color: #1a1a1a; margin: auto; padding: 30px;
+            border: 1px solid #444; border-radius: 12px;
+            width: 80%; max-width: 500px;
+            color: #e0e0e0; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            position: relative; animation: fadeIn 0.2s;
+        }
+        
+        .dev-close {
+            position: absolute; top: 10px; right: 20px; color: #aaa;
+            font-size: 28px; font-weight: bold; cursor: pointer;
+        }
+        .dev-close:hover { color: #fff; }
+        
+        .dev-list { list-style-type: none; padding: 0; margin-top: 15px; text-align: left; }
+        .dev-list li { 
+            padding: 8px 0; border-bottom: 1px solid #333; font-size: 0.95rem; color: #ccc; 
+            display: flex; align-items: start;
+        }
+        .dev-list li::before { content: "▫️"; margin-right: 10px; }
+        .dev-list li strong { color: #fff; margin-right: 5px; }
+        .dev-list li:last-child { border-bottom: none; }
+        
+        @media (max-width: 480px) {
+            .dev-btn { top: 10px; right: 10px; padding: 4px 8px; font-size: 11px; }
+        }
+    </style>
+
+    <button class="dev-btn" onclick="document.getElementById('devModal').style.display='flex'">Dev Log</button>
+
+    <div id="devModal" class="dev-modal" onclick="if(event.target == this) this.style.display='none'">
+        <div class="dev-modal-content">
+            <span class="dev-close" onclick="document.getElementById('devModal').style.display='none'">&times;</span>
+            <h2 style="margin-top: 0; border-bottom: 2px solid #333; padding-bottom: 10px; font-size: 1.5rem;">Future Plans & To-Do</h2>
+            
+            <ul class="dev-list">
+                <li><strong>[지식]</strong> 정보 수집 후 정리 예정</li>
+                <li><strong>[뉴스]</strong> 해외 뉴스 추가 고려</li>
+                <li><strong>[논문]</strong> 논문 수집방식 수정 필요</li>
+                <li><strong>[연구소]</strong> 추가 안된 연구소 추가 필요</li>
+                <li><strong>[학회]</strong> 보류</li>
+                <li><strong>[기타]</strong> 보류</li>
+            </ul>
+        </div>
+    </div>
+    """
+    # [삭제_END]
     content_html = ""
     
     for tab_key, tab_id in [("News", "News"), ("Labs", "Labs")]:
@@ -509,6 +573,10 @@ def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content
         </style>
     </head>
     <body>
+        <!-- [삭제_START] -->
+        {DEV_LOG_WIDGET}
+        <!-- [삭제_END] -->
+        
         <div class="container">
             <header>
                 <h1>AI 정보</h1>
