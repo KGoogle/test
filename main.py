@@ -136,9 +136,6 @@ def get_feed_data(url):
         return None
 
 def parse_custom_date(entry):
-    """
-    다양한 포맷의 날짜를 파싱하고, 최종적으로 한국 시간(KST) datetime 객체를 반환합니다.
-    """
     date_str = getattr(entry, 'published', "") or getattr(entry, 'updated', "") or getattr(entry, 'date', "")
     dt_obj = None
     kst = pytz.timezone('Asia/Seoul')
@@ -350,7 +347,7 @@ def process_translation(data_list, fields):
 
 def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content):
     now_kst = datetime.datetime.now(pytz.timezone('Asia/Seoul')).strftime('%Y-%m-%d %H:%M:%S')
-    # [삭제_START]
+    # [삭제 예정_START]
     DEV_LOG_WIDGET = """
     <style>
         .dev-btn {
@@ -414,7 +411,7 @@ def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content
         </div>
     </div>
     """
-    # [삭제_END]
+    # [삭제 예정_END]
     content_html = ""
     
     for tab_key, tab_id in [("News", "News"), ("Labs", "Labs")]:
@@ -573,9 +570,9 @@ def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content
         </style>
     </head>
     <body>
-        <!-- [삭제_START] -->
+        <!-- [삭제 예정_START] -->
         {DEV_LOG_WIDGET}
-        <!-- [삭제_END] -->
+        <!-- [삭제 예정_END] -->
         
         <div class="container">
             <header>
