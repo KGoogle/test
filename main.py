@@ -393,18 +393,18 @@ def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content
         }
     </style>
 
-    <button class="dev-btn" onclick="document.getElementById('devModal').style.display='flex'">Dev Log</button>
+    <button class="dev-btn" onclick="document.getElementById('devModal').style.display='flex'">📝Dev Log</button>
 
     <div id="devModal" class="dev-modal" onclick="if(event.target == this) this.style.display='none'">
         <div class="dev-modal-content">
             <span class="dev-close" onclick="document.getElementById('devModal').style.display='none'">&times;</span>
-            <h2 style="margin-top: 0; border-bottom: 2px solid #333; padding-bottom: 10px; font-size: 1.5rem;">Future Plans & To-Do</h2>
+            <h2 style="margin-top: 0; border-bottom: 2px solid #333; padding-bottom: 10px; font-size: 1.5rem;">To-Do</h2>
             
             <ul class="dev-list">
-                <li><strong>[지식]</strong> 정보 수집 후 정리 예정</li>
+                <li><strong>[지식]</strong> 정보 수집 후 정리</li>
                 <li><strong>[뉴스]</strong> 해외 뉴스 추가 고려</li>
-                <li><strong>[논문]</strong> 논문 수집방식 수정 필요</li>
-                <li><strong>[연구소]</strong> 추가 안된 연구소 추가 필요</li>
+                <li><strong>[논문]</strong> 논문 수집 범위 수정 필요</li>
+                <li><strong>[연구소]</strong> 연구소 추가 및 정보 변경</li>
                 <li><strong>[학회]</strong> 보류</li>
                 <li><strong>[기타]</strong> 보류</li>
             </ul>
