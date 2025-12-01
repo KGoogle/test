@@ -90,10 +90,76 @@
         </style>
     </head>
     <body>
+        <!-- [삭제 예정_START] -->
+        
+    <style>
+        .dev-btn {
+            position: absolute; top: 15px; right: 20px;
+            background: rgba(255, 255, 255, 0.1); border: 1px solid #444; color: #888;
+            padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 12px;
+            transition: all 0.2s; z-index: 9999; text-decoration: none;
+        }
+        .dev-btn:hover { background: #333; color: #fff; border-color: #666; }
+        
+        .dev-modal {
+            display: none; position: fixed; z-index: 10000; left: 0; top: 0;
+            width: 100%; height: 100%; overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center; align-items: center;
+        }
+        
+        .dev-modal-content {
+            background-color: #1a1a1a; margin: auto; padding: 30px;
+            border: 1px solid #444; border-radius: 12px;
+            width: 80%; max-width: 500px;
+            color: #e0e0e0; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            position: relative; animation: fadeIn 0.2s;
+        }
+        
+        .dev-close {
+            position: absolute; top: 10px; right: 20px; color: #aaa;
+            font-size: 28px; font-weight: bold; cursor: pointer;
+        }
+        .dev-close:hover { color: #fff; }
+        
+        .dev-list { list-style-type: none; padding: 0; margin-top: 15px; text-align: left; }
+        .dev-list li { 
+            padding: 8px 0; border-bottom: 1px solid #333; font-size: 0.95rem; color: #ccc; 
+            display: flex; align-items: start;
+        }
+        .dev-list li::before { content: "▫️"; margin-right: 10px; }
+        .dev-list li strong { color: #fff; margin-right: 5px; }
+        .dev-list li:last-child { border-bottom: none; }
+        
+        @media (max-width: 480px) {
+            .dev-btn { top: 10px; right: 10px; padding: 4px 8px; font-size: 11px; }
+        }
+    </style>
+
+    <button class="dev-btn" onclick="document.getElementById('devModal').style.display='flex'">Dev Log</button>
+
+    <div id="devModal" class="dev-modal" onclick="if(event.target == this) this.style.display='none'">
+        <div class="dev-modal-content">
+            <span class="dev-close" onclick="document.getElementById('devModal').style.display='none'">&times;</span>
+            <h2 style="margin-top: 0; border-bottom: 2px solid #333; padding-bottom: 10px; font-size: 1.5rem;">Future Plans & To-Do</h2>
+            
+            <ul class="dev-list">
+                <li><strong>[지식]</strong> 정보 수집 후 정리 예정</li>
+                <li><strong>[뉴스]</strong> 해외 뉴스 추가 고려</li>
+                <li><strong>[논문]</strong> 논문 수집방식 수정 필요</li>
+                <li><strong>[연구소]</strong> 추가 안된 연구소 추가 필요</li>
+                <li><strong>[학회]</strong> 보류</li>
+                <li><strong>[기타]</strong> 보류</li>
+            </ul>
+        </div>
+    </div>
+    
+        <!-- [삭제 예정_END] -->
+        
         <div class="container">
             <header>
                 <h1>AI 정보</h1>
-                <div class="timestamp">Updated: 2025-12-01 05:29:59</div>
+                <div class="timestamp">Updated: 2025-12-01 23:42:56</div>
             </header>
 
             <nav class="tabs">
@@ -110,41 +176,73 @@
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">AI 타임스</span>
-                        <span class="date">2025-11-30 19:56</span>
+                        <span class="date">2025-12-01 17:00</span>
                     </div>
-                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204383" target="_blank" class="card-title">평범한 로봇 청소기가 실리콘 밸리의 화제가 된 이유는</a>
+                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204416" target="_blank" class="card-title">알리바바, 60억 매개변수의 강력한 'Z-이미지' 출시</a>
                 </div>
                 
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">AI 타임스</span>
-                        <span class="date">2025-11-30 18:23</span>
+                        <span class="date">2025-12-01 17:00</span>
                     </div>
-                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204376" target="_blank" class="card-title">애플, 'AI 사용하지 않은' 동물 광고로 코카콜라와 비교</a>
+                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204410" target="_blank" class="card-title">오픈AI 연구원 "고교 중퇴 후 챗GPT로 머신 러닝 배워...박사급들과 연구 중"</a>
                 </div>
                 
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">AI 타임스</span>
-                        <span class="date">2025-11-30 13:48</span>
+                        <span class="date">2025-12-01 17:00</span>
                     </div>
-                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204380" target="_blank" class="card-title">알리바바, 어텐션 효율 개선 논문으로 '뉴립스' 최고 논문상 수상</a>
+                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204394" target="_blank" class="card-title">클레이, 3대 음반사와 계약한 유일한 AI 음악 스타트업으로 주목</a>
                 </div>
                 
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">AI 타임스</span>
-                        <span class="date">2025-11-30 13:30</span>
+                        <span class="date">2025-12-01 17:00</span>
                     </div>
-                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204377" target="_blank" class="card-title">이탈리아, AI 방어 시스템 '미켈란젤로 돔' 공개</a>
+                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204392" target="_blank" class="card-title">문샷AI·미니맥스, 딥시크 넘어 미국에 맞설 ‘최강 경쟁자’로 부상</a>
                 </div>
                 
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">AI 타임스</span>
-                        <span class="date">2025-11-30 13:00</span>
+                        <span class="date">2025-12-01 17:00</span>
                     </div>
-                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204375" target="_blank" class="card-title">미국 특허청 "AI는 도구일 뿐...발명가로 간주 못 해" 재확인</a>
+                    <a href="https://www.aitimes.com/news/articleView.html?idxno=204391" target="_blank" class="card-title">AI 쇼핑 도구, 미국  블랙프라이데이 온라인 매출 사상 최대 기록</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">AI Matters</span>
+                        <span class="date">2025-12-01 14:23</span>
+                    </div>
+                    <a href="https://aimatters.co.kr/news-report/ai-report/34449/" target="_blank" class="card-title">“정확도 90%?” 도박 중독 막는다던 AI, 실제로는 제대로 작동하는지 아무도 몰라</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">AI Matters</span>
+                        <span class="date">2025-12-01 14:02</span>
+                    </div>
+                    <a href="https://aimatters.co.kr/news-report/ai-report/34446/" target="_blank" class="card-title">AI가 쓴 시가 시인이 쓴 시보다 높은 점수… ‘AI 작품’이라 알려주니 평가 급락</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">AI Matters</span>
+                        <span class="date">2025-12-01 13:35</span>
+                    </div>
+                    <a href="https://aimatters.co.kr/news-report/ai-report/34442/" target="_blank" class="card-title">LLM의 고질병 ‘첫 단어 집착증’ 개선… 알리바바, ‘뉴립스’ 최고 논문상 수상</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">인공지능신문</span>
+                        <span class="date">2025-12-01 09:41</span>
+                    </div>
+                    <a href="https://www.aitimes.kr/news/articleView.html?idxno=37477" target="_blank" class="card-title">“학습시간 대폭 줄이고 성능은 유지 "... UNIST 심재영 교수팀, 3D 포인트 클라우드 데이터 증류 기법 개발</a>
                 </div>
                 
                 <div class="card">
@@ -165,14 +263,6 @@
                 
                 <div class="card">
                     <div class="card-meta">
-                        <span class="badge">AI Matters</span>
-                        <span class="date">2025-11-28 15:34</span>
-                    </div>
-                    <a href="https://aimatters.co.kr/news-report/ai-report/34400/" target="_blank" class="card-title">“AI로 쇼핑하니 반품이 줄었다”… 어도비가 말하는 5가지 AI 트렌드</a>
-                </div>
-                
-                <div class="card">
-                    <div class="card-meta">
                         <span class="badge">인공지능신문</span>
                         <span class="date">2025-11-28 09:00</span>
                     </div>
@@ -185,22 +275,6 @@
                         <span class="date">2025-11-27 20:57</span>
                     </div>
                     <a href="https://www.aitimes.kr/news/articleView.html?idxno=37434" target="_blank" class="card-title">퀄컴, 차세대 모바일 플랫폼 ‘스냅드래곤 8 Gen 5’ 공개… 프리미엄 성능과 AI 경험 대폭 강화</a>
-                </div>
-                
-                <div class="card">
-                    <div class="card-meta">
-                        <span class="badge">AI Matters</span>
-                        <span class="date">2025-11-27 11:32</span>
-                    </div>
-                    <a href="https://aimatters.co.kr/news-report/ai-report/34343/" target="_blank" class="card-title">“눈으로 보고, 글로 계산”… AI 추론 능력 끌어올리는 해법 찾았다</a>
-                </div>
-                
-                <div class="card">
-                    <div class="card-meta">
-                        <span class="badge">AI Matters</span>
-                        <span class="date">2025-11-27 11:15</span>
-                    </div>
-                    <a href="https://aimatters.co.kr/news-report/ai-report/34339/" target="_blank" class="card-title">“여기 어디야?” 사진 한 장에 위치 맞추는 AI 등장… 간판, 건물 모양, 표지판 분석해 장소 찾는다</a>
                 </div>
                 
                 <div class="card">
@@ -218,29 +292,37 @@
                     </div>
                     <a href="https://www.aitimes.kr/news/articleView.html?idxno=37394" target="_blank" class="card-title">"AI가 위험도 먼저 감지, 안전성 더한 시각언어모델"...ETRI, ‘세이프 라바’ 오픈소스로 공개</a>
                 </div>
-                
-                <div class="card">
-                    <div class="card-meta">
-                        <span class="badge">인공지능신문</span>
-                        <span class="date">2025-11-26 09:45</span>
-                    </div>
-                    <a href="https://www.aitimes.kr/news/articleView.html?idxno=37393" target="_blank" class="card-title">ST마이크로, 업계 최대 규모 마이크로컨트롤러용 AI Model Zoo 출시…피지컬 AI 상용화 속도 높인다</a>
-                </div>
                 </div></div><div id="Labs" class="tab-content"><div class="card-grid">
                 <div class="card">
                     <div class="card-meta">
-                        <span class="badge">Google</span>
-                        <span class="date">2025-11-27</span>
+                        <span class="badge">OpenAI</span>
+                        <span class="date">2025-12-01</span>
                     </div>
-                    <a href="https://blog.google/outreach-initiatives/google-org/deepening-our-ai-research-partnership-with-tel-aviv-university/" target="_blank" class="card-title">텔아비브 대학교와의 AI 연구 파트너십 강화</a>
+                    <a href="https://openai.com/index/norad-holiday-collaboration" target="_blank" class="card-title">OpenAI와 NORAD, "NORAD Tracks Santa"에 새로운 마법을 더하기 위해 협력</a>
                 </div>
                 
                 <div class="card">
                     <div class="card-meta">
                         <span class="badge">OpenAI</span>
+                        <span class="date">2025-12-01</span>
+                    </div>
+                    <a href="https://openai.com/index/thrive-holdings" target="_blank" class="card-title">OpenAI, Thrive Holdings 지분 인수하여 엔터프라이즈 AI 도입 가속화</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">OpenAI</span>
+                        <span class="date">2025-12-01</span>
+                    </div>
+                    <a href="https://openai.com/index/accenture-partnership" target="_blank" class="card-title">Accenture와 OpenAI, 엔터프라이즈 AI 성공 가속화</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-meta">
+                        <span class="badge">Google</span>
                         <span class="date">2025-11-27</span>
                     </div>
-                    <a href="https://openai.com/index/mixpanel-incident" target="_blank" class="card-title">Mixpanel 보안 사고: OpenAI 사용자 필독 사항</a>
+                    <a href="https://blog.google/outreach-initiatives/google-org/deepening-our-ai-research-partnership-with-tel-aviv-university/" target="_blank" class="card-title">텔아비브 대학교와의 AI 연구 파트너십 심화</a>
                 </div>
                 
                 <div class="card">
@@ -253,14 +335,6 @@
                 
                 <div class="card">
                     <div class="card-meta">
-                        <span class="badge">OpenAI</span>
-                        <span class="date">2025-11-26</span>
-                    </div>
-                    <a href="https://openai.com/index/expanding-data-residency-access-to-business-customers-worldwide" target="_blank" class="card-title">전 세계 비즈니스 고객을 위한 데이터 상주 액세스 확대</a>
-                </div>
-                
-                <div class="card">
-                    <div class="card-meta">
                         <span class="badge">MIT(CSAIL)</span>
                         <span class="date">2025-11-26</span>
                     </div>
@@ -269,18 +343,10 @@
                 
                 <div class="card">
                     <div class="card-meta">
-                        <span class="badge">OpenAI</span>
-                        <span class="date">2025-11-25</span>
-                    </div>
-                    <a href="https://openai.com/index/mental-health-litigation-approach" target="_blank" class="card-title">정신 건강 관련 소송에 대한 우리의 접근 방식</a>
-                </div>
-                
-                <div class="card">
-                    <div class="card-meta">
                         <span class="badge">CMU(SCS)</span>
                         <span class="date">2025-11-25</span>
                     </div>
-                    <a href="https://www.cmu.edu/news/stories/archives/2025/november/real-world-cyber-experience-is-hard-to-get-this-cmu-program-could-change-that" target="_blank" class="card-title">CMU 프로그램, 학생들이 실제 사이버 보안 경험을 쌓도록 지원</a>
+                    <a href="https://www.cmu.edu/news/stories/archives/2025/november/real-world-cyber-experience-is-hard-to-get-this-cmu-program-could-change-that" target="_blank" class="card-title">CMU 프로그램, 학생들에게 실제 사이버 보안 경험 제공</a>
                 </div>
                 
                 <div class="card">
@@ -288,7 +354,7 @@
                         <span class="badge">MIT(CSAIL)</span>
                         <span class="date">2025-11-25</span>
                     </div>
-                    <a href="https://news.mit.edu/2025/how-ai-can-help-achieve-clean-energy-future-1124" target="_blank" class="card-title">인공지능이 청정 에너지 미래 달성에 어떻게 도움이 될 수 있는가</a>
+                    <a href="https://news.mit.edu/2025/how-ai-can-help-achieve-clean-energy-future-1124" target="_blank" class="card-title">인공지능이 깨끗한 에너지 미래 달성에 어떻게 기여할 수 있는가</a>
                 </div>
                 
                 <div class="card">
@@ -296,7 +362,7 @@
                         <span class="badge">CMU(SCS)</span>
                         <span class="date">2025-11-25</span>
                     </div>
-                    <a href="https://www.cs.cmu.edu/news/2025/sandholm-alfred-kordelin-prize" target="_blank" class="card-title">Sandholm, 세계적 영향력을 가진 AI 연구로 Alfred Kordelin 상 수상</a>
+                    <a href="https://www.cs.cmu.edu/news/2025/sandholm-alfred-kordelin-prize" target="_blank" class="card-title">Sandholm, 세계적 영향력의 AI 연구로 Alfred Kordelin 상 수상</a>
                 </div>
                 
                 <div class="card">
@@ -320,7 +386,7 @@
                         <span class="badge">Google</span>
                         <span class="date">2025-11-18</span>
                     </div>
-                    <a href="https://blog.google/technology/google-deepmind/weathernext-2/" target="_blank" class="card-title">WeatherNext 2: 가장 진보된 날씨 예측 모델</a>
+                    <a href="https://blog.google/technology/google-deepmind/weathernext-2/" target="_blank" class="card-title">WeatherNext 2: 가장 발전된 날씨 예측 모델</a>
                 </div>
                 
                 <div class="card">
@@ -349,66 +415,66 @@
                 </div></div><div id="Papers" class="tab-content"><div class="card-grid">
             <div class="card paper-card">
                 <div class="card-meta">
-                    <span class="badge paper-badge">cs.CL</span>
-                    <span class="date">2025-11-27</span>
+                    <span class="badge paper-badge">cs.AI</span>
+                    <span class="date">2025-11-29</span>
                 </div>
-                <a href="http://arxiv.org/abs/2511.21692v1" target="_blank" class="card-title">난이도 수준별 일반화 재검토: 생각보다 쉽지 않음</a>
-                <div class="card-author">Yeganeh Kordi et al.</div>
+                <a href="http://arxiv.org/abs/2511.23476v1" target="_blank" class="card-title">다중 턴 상호작용을 통한 LLM의 효율적인 월드 모델 추론 구축: 생각하고 행동하기</a>
+                <div class="card-author">Bao Shu et al.</div>
                 <details>
                     <summary>Abstract</summary>
-                    <div class="abstract-text">대규모 언어 모델(LLM)이 다양한 난이도의 작업에 대해 얼마나 잘 일반화되는지를 조사하는 것은 효과적인 데이터 큐레이션 및 평가에 핵심적인 질문입니다. 기존 연구는 쉬운 데이터로 학습하는 것이 더 나은 결과를 가져오는지, 아니면 어려운 데이터로 학습하는 것이 더 나은 결과를 가져오는지, 그리고 이러한 이득이 쉬운 테스트 데이터에서 발생하는지 아니면 어려운 테스트 데이터에서 발생하는지에 대해 혼합된 결과를 보여줍니다. 우리는 모델, 데이터셋, 그리고 예시 난이도의 세분화된 그룹 전반에 걸쳐 LLM의 일반화에 대한 체계적인 평가를 수행함으로써 이 질문에 답합니다. 우리는 교육 테스트에서 잘 확립된 난이도 지표인 Item Response Theory(IRT)와 수천 개의 서로 다른 LLM의 출력을 사용하여 여섯 개의 데이터셋에 있는 예시들의 순위를 매깁니다. 따라서 우리의 난이도 평가는 인간의 난이도 의견을 제외하고, 오직 다양한 LLM의 능력에 의해서만 결정됩니다. 더 객관적이고 대규모이며 세분화된 분석을 통해, 우리는 난이도 간 일반화가 종종 제한적이라는 것을 보여줍니다. 쉬운 데이터나 어려운 데이터로 학습하는 것은 전체 난이도 범위에 걸쳐 일관된 개선을 달성할 수 없습니다. 이러한 결과는 LLM의 학습 및 평가 데이터 모두에 다양한 난이도가 존재해야 하는 중요성을 보여주며, 난이도와 관련하여 지름길을 택하는 것은 위험합니다.</div>
+                    <div class="abstract-text">강력한 월드 모델 추론 능력 개발은 대규모 언어 모델(LLM) 에이전트가 복잡한 환경에서 계획하고 상호작용하는 데 매우 중요합니다. 다중 턴 상호작용은 실제 피드백을 통해 환경 역학에 대한 우수한 이해를 제공하지만, 현재 접근 방식은 종종 엄격한 추론 프로세스를 부과하여 모델의 능동 학습을 제약하고 궁극적으로 효율적인 월드 모델 추론을 방해합니다. 이러한 문제를 해결하기 위해 우리는 효율적인 상호작용과 능동 추론(WMAct)을 통한 월드 모델 내재화를 탐구합니다. 이는 모델을 구조화된 추론에서 해방시켜 모델이 자신의 행동을 통해 직접 사고를 형성할 수 있도록 하고, 두 가지 핵심 메커니즘을 통해 효과적이고 효율적인 월드 모델 추론을 달성합니다. (1) 중복 감소와 목적 있는 상호작용을 장려하기 위해 행동 효능에 따라 결과 보상을 조정하는 보상 재조정 메커니즘. (2) 최대 허용 상호작용 턴 수를 점진적으로 줄이는 상호작용 빈도 어닐링 전략으로, 모델이 환경 단서에 과도하게 의존하기보다는 학습을 압축하고 환경 역학을 내재화하도록 강제합니다. Sokoban, Maze, Taxi에 대한 실험 결과, WMAct는 이전에 여러 상호작용이 필요했던 작업을 단일 턴에 해결할 수 있는 효과적인 월드 모델 추론을 제공하고 복잡한 환경으로의 강력한 전이성을 촉진하여 일련의 추론 벤치마크에서 성능을 향상시킵니다.</div>
                 </details>
             </div>
             
             <div class="card paper-card">
                 <div class="card-meta">
-                    <span class="badge paper-badge">cs.RO</span>
-                    <span class="date">2025-11-27</span>
+                    <span class="badge paper-badge">cs.LG</span>
+                    <span class="date">2025-11-29</span>
                 </div>
-                <a href="http://arxiv.org/abs/2511.21690v1" target="_blank" class="card-title">TraceGen: 3D 추적 공간에서의 월드 모델링이 교차 체현 비디오로부터의 학습을 가능하게 함</a>
-                <div class="card-author">Seungjae Lee et al.</div>
+                <a href="http://arxiv.org/abs/2511.23473v1" target="_blank" class="card-title">ThetaEvolve: 공개 문제에 대한 테스트 시간 학습</a>
+                <div class="card-author">Yiping Wang et al.</div>
                 <details>
                     <summary>Abstract</summary>
-                    <div class="abstract-text">소수의 시연만으로 새로운 로봇 작업을 새로운 플랫폼과 새로운 장면에서 학습하는 것은 여전히 어렵습니다. 다른 구현체(인간 및 다른 로봇)의 비디오는 풍부하지만, 구현체, 카메라 및 환경의 차이는 직접적인 사용을 방해합니다. 우리는 구현체, 환경, 작업 간의 비디오에서 학습을 가능하게 하는 통합된 기호 표현, 즉 장면 수준 궤적의 컴팩트한 3D "추적 공간"을 도입하여 소량 데이터 문제를 해결합니다. 우리는 픽셀 공간이 아닌 추적 공간에서 미래의 움직임을 예측하는 세계 모델인 TraceGen을 제시하며, 조작에 필요한 기하학적 구조를 유지하면서 외형을 추상화합니다. TraceGen을 대규모로 훈련하기 위해, 우리는 이기종 인간 및 로봇 비디오를 일관된 3D 추적으로 변환하는 데이터 파이프라인인 TraceForge를 개발하여 123K 비디오와 1.8M 관찰-추적-언어 삼중항의 코퍼스를 생성합니다. 이 코퍼스에서 사전 훈련하면 전이 가능한 3D 모션 사전 학습이 생성되어 효율적으로 적응합니다. 단 5개의 대상 로봇 비디오만으로도 TraceGen은 4가지 작업에서 80%의 성공률을 달성하며, 최첨단 비디오 기반 세계 모델보다 50-600배 빠른 추론 속도를 제공합니다. 휴대폰으로 촬영된 보정되지 않은 5개의 인간 시연 비디오만 사용 가능한 더 어려운 경우에도 실제 로봇에서 67.5%의 성공률을 달성하여, 객체 감지기나 무거운 픽셀 공간 생성에 의존하지 않고 구현체 간 적응 능력을 강조합니다.</div>
+                    <div class="abstract-text">대규모 언어 모델(LLM)의 최근 발전은 수학적 발견에 획기적인 발전을 가져왔으며, 이는 오픈 문제에 대한 경계를 개선하기 위해 프로그램을 진화시키는 폐쇄 소스 시스템인 AlphaEvolve로 대표됩니다. 그러나 이는 새로운 경계를 달성하기 위해 최첨단 LLM의 앙상블에 의존하며, 모델이 진화하는 전략을 내재화할 수 없는 순수 추론 시스템입니다. 우리는 테스트 시점의 인컨텍스트 학습과 강화 학습(RL)을 효율적으로 확장하여 모델이 오픈 최적화 문제를 개선하는 경험으로부터 지속적으로 학습할 수 있도록 하는 AlphaEvolve를 단순화하고 확장하는 오픈 소스 프레임워크인 ThetaEvolve를 소개합니다. ThetaEvolve는 단일 LLM, 향상된 탐색을 위한 대규모 프로그램 데이터베이스, 더 높은 처리량을 위한 배치 샘플링, 정체된 출력을 억제하기 위한 지연 페널티, 안정적인 학습 신호를 위한 선택적 보상 셰이핑 등을 특징으로 합니다. ThetaEvolve는 AlphaEvolve에서 언급된 오픈 문제(원 채우기 및 첫 번째 자기 상관 부등식)에 대한 새로운 최고 경계를 달성할 수 있는 DeepSeek-R1-0528-Qwen3-8B와 같은 소규모 오픈 소스 모델을 지원하는 최초의 진화 프레임워크입니다. 또한, 두 개의 모델과 네 개의 오픈 작업을 통해 테스트 시점의 RL을 갖춘 ThetaEvolve가 추론 전용 기준선보다 일관되게 우수하며, RL 학습된 체크포인트가 학습된 대상 작업 및 기타 보지 못한 작업 모두에서 더 빠른 진행과 더 나은 최종 성능을 보여주므로 모델이 실제로 진화하는 능력을 학습한다는 것을 발견했습니다. 코드를 공개적으로 릴리스합니다: https://github.com/ypwang61/ThetaEvolve</div>
                 </details>
             </div>
             
             <div class="card paper-card">
                 <div class="card-meta">
-                    <span class="badge paper-badge">cs.CL</span>
-                    <span class="date">2025-11-27</span>
+                    <span class="badge paper-badge">cs.LG</span>
+                    <span class="date">2025-11-29</span>
                 </div>
-                <a href="http://arxiv.org/abs/2511.21689v1" target="_blank" class="card-title">ToolOrchestra: 효율적인 모델 및 도구 오케스트레이션을 통한 지능 향상</a>
-                <div class="card-author">Hongjin Su et al.</div>
+                <a href="http://arxiv.org/abs/2511.23465v1" target="_blank" class="card-title">SmallWorlds: 격리된 환경에서 월드 모델의 동적 이해 평가</a>
+                <div class="card-author">Xinyi Li et al.</div>
                 <details>
                     <summary>Abstract</summary>
-                    <div class="abstract-text">대규모 언어 모델은 강력한 일반화 능력을 가지고 있지만, Humanity's Last Exam(HLE)과 같은 깊고 복잡한 문제를 해결하는 것은 개념적으로 어렵고 계산 비용이 많이 듭니다. 우리는 다른 모델과 다양한 도구를 관리하는 작은 오케스트레이터가 지능의 상한선을 높이고 어려운 에이전트 작업 해결의 효율성을 향상시킬 수 있음을 보여줍니다. 우리는 지능형 도구를 조정하는 작은 오케스트레이터를 훈련하는 방법인 ToolOrchestra를 소개합니다. ToolOrchestra는 결과, 효율성 및 사용자 선호도를 고려한 보상을 사용하여 강화 학습을 명시적으로 사용합니다. ToolOrchestra를 사용하여, 우리는 이전 도구 사용 에이전트보다 낮은 비용으로 더 높은 정확도를 달성하면서 주어진 쿼리에 대해 어떤 도구를 사용해야 하는지에 대한 사용자 선호도와 일치하는 8B 모델인 Orchestrator를 생산합니다. HLE에서 Orchestrator는 37.1%의 점수를 달성하여 GPT-5(35.1%)를 능가하면서도 2.5배 더 효율적입니다. tau2-Bench 및 FRAMES에서 Orchestrator는 GPT-5를 훨씬 능가하면서도 비용의 약 30%만 사용합니다. 광범위한 분석은 Orchestrator가 여러 지표에서 성능과 비용 간의 최상의 절충점을 달성하고 보지 못한 도구에 대해 강력하게 일반화됨을 보여줍니다. 이러한 결과는 경량 오케스트레이션 모델로 다양한 도구를 구성하는 것이 기존 방법보다 더 효율적이고 효과적임을 보여주며, 실용적이고 확장 가능한 도구 증강 추론 시스템의 길을 열어줍니다.</div>
+                    <div class="abstract-text">현재 월드 모델은 체계적인 평가를 위한 통합되고 통제된 설정이 부족하여 환경 역학을 지배하는 근본적인 규칙을 실제로 포착하는지 평가하기 어렵습니다. 본 연구에서는 수작업 보상 신호에 의존하지 않고 격리되고 정밀하게 제어된 역학 하에서 월드 모델 기능을 평가하도록 설계된 테스트베드인 SmallWorld Benchmark를 도입하여 이 개방형 과제를 해결합니다. 이 벤치마크를 사용하여 순환 상태 공간 모델, 트랜스포머, 확산 모델 및 신경 ODE를 포함한 대표적인 아키텍처에 대해 완전히 관찰 가능한 상태 공간에서 포괄적인 실험을 수행하여 6가지 서로 다른 도메인에 걸쳐 동작을 조사합니다. 실험 결과는 이러한 모델이 환경 구조를 얼마나 효과적으로 포착하는지, 그리고 확장된 롤아웃에 걸쳐 예측이 어떻게 저하되는지를 보여주며, 현재 모델링 패러다임의 강점과 한계를 모두 강조하고 표현 학습 및 역학 모델링의 향후 개선 방향에 대한 통찰력을 제공합니다.</div>
                 </details>
             </div>
             
             <div class="card paper-card">
                 <div class="card-meta">
-                    <span class="badge paper-badge">cs.CV</span>
-                    <span class="date">2025-11-27</span>
+                    <span class="badge paper-badge">cs.LG</span>
+                    <span class="date">2025-11-29</span>
                 </div>
-                <a href="http://arxiv.org/abs/2511.21688v1" target="_blank" class="card-title">G$^2$VLM: 통합 3D 재구성 및 공간 추론을 갖춘 기하학 기반 비전 언어 모델</a>
-                <div class="card-author">Wenbo Hu et al.</div>
+                <a href="http://arxiv.org/abs/2511.23455v1" target="_blank" class="card-title">발전의 대가: 알고리즘 효율성과 AI 추론 비용 하락</a>
+                <div class="card-author">Hans Gundlach et al.</div>
                 <details>
                     <summary>Abstract</summary>
-                    <div class="abstract-text">Vision-Language Models(VLMs)는 공간 지능에서 여전히 견고성이 부족하여 공간 이해 및 추론 작업에서 낮은 성능을 보입니다. 우리는 이러한 격차를 2D 이미지에서 3D 공간을 재구성할 수 있는 시각적 기하학 학습 프로세스의 부재 때문이라고 생각합니다. 우리는 공간 지능의 두 가지 기본 측면인 공간 3D 재구성 및 공간 이해를 연결하는 기하학적으로 기반을 둔 비전-언어 모델인 G$^2$VLM을 제시합니다. G$^2$VLM은 학습된 3D 시각 기하학 특징을 기본적으로 활용하여 3D 속성을 직접 예측하고 인컨텍스트 학습 및 인터리브 추론을 통해 공간 추론 작업을 향상시킵니다. 우리의 통합 설계는 공간 이해에 대해 매우 확장 가능합니다. 풍부한 다중 보기 이미지 및 비디오 데이터로 훈련하면서 일반적으로 수집하기 어려운 주석에서만 파생되는 3D 시각적 사전 학습의 이점을 동시에 활용합니다. 실험 결과는 G$^2$VLM이 두 작업 모두에서 능숙하며, 최첨단 피드포워드 3D 재구성 모델과 비교할 만한 결과를 달성하고 공간 이해 및 추론 작업 전반에 걸쳐 더 좋거나 경쟁력 있는 결과를 달성함을 보여줍니다. 의미론적으로 강력한 VLM과 저수준 3D 비전 작업을 통합함으로써, 우리는 G$^2$VLM이 커뮤니티를 위한 강력한 기준선 역할을 하고 3D 장면 편집과 같은 더 많은 미래 응용 프로그램을 잠금 해제할 수 있기를 바랍니다.</div>
+                    <div class="abstract-text">언어 모델은 최근 몇 년 동안 고급 벤치마크에서 엄청난 발전을 보였지만, 이러한 발전의 상당 부분은 더 비싼 모델을 사용해야만 가능했습니다. 따라서 벤치마크는 달러당 실질적인 기능 발전의 왜곡된 그림을 제시할 수 있습니다. 이를 해결하기 위해 우리는 인공 분석 및 Epoch AI의 데이터를 사용하여 현재 및 과거 가격에 대한 가장 큰 데이터 세트를 형성하여 현재까지 벤치마크를 실행합니다. 우리는 지식, 추론, 수학 및 소프트웨어 엔지니어링 벤치마크에서 최첨단 모델의 경우 주어진 벤치마크 성능 수준에 대한 가격이 연간 약 5배에서 10배까지 놀랍도록 빠르게 감소했음을 발견했습니다. 이러한 AI 추론 비용의 감소는 경제적 요인, 하드워크 효율성 개선 및 알고리즘 효율성 개선에 기인합니다. 경쟁 효과를 통제하기 위해 오픈 모델을 분리하고 하드워크 가격 하락으로 나누면 알고리즘 효율성 발전은 연간 약 3배로 추정됩니다. 마지막으로, 평가자들에게 벤치마킹 가격을 공개하고 이를 AI의 실제 영향을 측정하는 데 필수적인 부분으로 고려할 것을 권장합니다.</div>
                 </details>
             </div>
             
             <div class="card paper-card">
                 <div class="card-meta">
-                    <span class="badge paper-badge">cs.CL</span>
-                    <span class="date">2025-11-27</span>
+                    <span class="badge paper-badge">cs.LG</span>
+                    <span class="date">2025-11-29</span>
                 </div>
-                <a href="http://arxiv.org/abs/2511.21686v1" target="_blank" class="card-title">Matrix: P2P 멀티 에이전트 합성 데이터 생성 프레임워크</a>
-                <div class="card-author">Dong Wang et al.</div>
+                <a href="http://arxiv.org/abs/2511.23449v1" target="_blank" class="card-title">열물성치 검색을 위한 물리 정보 신경망</a>
+                <div class="card-author">Ali Waseem et al.</div>
                 <details>
                     <summary>Abstract</summary>
-                    <div class="abstract-text">합성 데이터는 대규모 언어 모델을 훈련하는 데 점점 더 중요해지고 있으며, 특히 실제 데이터가 부족하거나, 비싸거나, 개인 정보 보호에 민감한 경우 더욱 그렇습니다. 이러한 많은 생성 작업은 조정된 다중 에이전트 워크플로우를 필요로 하며, 여기서 전문화된 에이전트가 협력하여 더 높은 품질, 더 다양한, 그리고 구조적으로 더 풍부한 데이터를 생성합니다. 그러나 다중 에이전트 합성을 위한 기존 프레임워크는 종종 중앙 집중식 오케스트레이터에 의존하여 확장성 병목 현상을 일으키거나 특정 도메인에 대해 하드코딩되어 유연성을 제한합니다. 우리는 제어와 데이터 흐름 모두를 분산 큐를 통해 전달되는 직렬화된 메시지로 나타내는 분산 프레임워크인 **Matrix**를 제시합니다. 이 피어 투 피어 설계는 중앙 오케스트레이터를 제거합니다. 각 작업은 경량 에이전트를 통해 독립적으로 진행되며, LLM 추론 또는 컨테이너화된 환경과 같은 계산 집약적인 작업은 분산 서비스에서 처리됩니다. Ray를 기반으로 구축된 Matrix는 수만 개의 동시 에이전트 워크플로우로 확장되며 모듈식이고 구성 가능한 설계를 제공하여 다양한 데이터 생성 워크플로우에 쉽게 적응할 수 있습니다. 우리는 다중 에이전트 협업 대화, 웹 기반 추론 데이터 추출, 고객 서비스 환경에서의 도구 사용 궤적 생성과 같은 다양한 합성 시나리오에서 Matrix를 평가합니다. 모든 경우에 Matrix는 출력 품질을 저하시키지 않으면서 동일한 하드웨어 리소스에서 2~15배 더 높은 데이터 생성 처리량을 달성합니다.</div>
+                    <div class="abstract-text">역 열 문제는 관찰되거나 알려진 열 확산 거동이 주어졌을 때 재료의 열물리적 특성을 추정하는 것을 말합니다. 역 열 문제는 광범위한 용도를 가지고 있지만, 중요한 응용 분야는 건물 에너지 효율성의 핵심 결정 요인인 건물 외관 리노베이션이 열 투과율을 얼마나 감소시키는지 정량화하는 데 있습니다. 그러나 현장에서 수집된 비침습적 데이터를 사용하여 역 열 문제를 해결하는 것은 환경 변동성 또는 이론적으로 가정된 조건과의 편차로 인해 오류가 발생하기 쉽습니다. 따라서 열 전도도를 측정하는 현재 방법은 침습적이거나, 긴 관찰 기간이 필요하거나, 환경 및 실험 조건에 민감합니다. 여기서는 일련의 열 그래프에서 벽의 열 전도도 k를 추정하기 위한 PINN 기반 반복 프레임워크를 제시합니다. 이 프레임워크는 고정된 k에 대해 PINN으로 순방향 열 문제를 추정하는 것과 열 그래프 및 PINN이 예측한 표면 온도를 비교하여 k를 최적화하는 것을 번갈아 수행하며, 추정된 k의 수렴까지 반복합니다. 날씨 스테이션에서 캡처한 환경 데이터와 유한 체적 방법 소프트웨어 시뮬레이션에서 생성된 데이터를 모두 사용하여, 새벽의 벽 온도 프로파일이 정상 상태에 가까울 때, 다양한 환경 조건과 데이터 수집 샘플링 시간에서 k를 정확하게 예측합니다. 정상 상태 가정을 위반하는 것이 k 추정의 정확도에 영향을 미치지만, 제안된 프레임워크는 최대 MAE가 4.0851에 불과하다는 것을 보여줍니다. 본 연구는 긴 측정 캠페인 없이 현장 및 현실적인 조건에서 재료 특성을 안정적으로 추정하기 위한 PINN 기반 방법의 잠재력을 보여줍니다. 현장 역 문제 해결을 위해 기계 학습, 특히 PINN을 사용하는 연구가 부족하다는 점을 감안할 때, 본 연구가 해당 주제에 대한 더 많은 연구의 시작점이 될 것으로 기대합니다.</div>
                 </details>
             </div>
             </div><div class="arxiv-ack">"Thank you to arXiv for use of its open access interoperability."</div></div>
@@ -437,7 +503,7 @@
             <details>
                 <summary>지능의 본질과 탐구</summary>
                 <div class="timeline-content">
-                    <ul class="event-list"><li><strong>지능이란?</strong><br>지능은 구성 개념이므로 절대적인 정의는 없지만 일반적으로 정보에 대해 적응,학습,활용하는 지적 능력을 말한다. 지적 활동은 개인의 뇌에만 국한되지 않는다. 언어로 타인과 생각을 나누고, 기록을 남기며, 도구를 사용하는 것은 인간이 지능을 확장하는 방식이다.</li></ul>
+                    <ul class="event-list"><li><strong>지능이란?</strong><br>지능은 구성 개념이므로 절대적인 정의는 없지만 일반적으로 적응,학습,활용하는 지적 능력을 말한다. 지적 활동은 개인의 뇌에만 국한되지 않는다. 언어로 타인과 생각을 나누고, 기록을 남기며, 도구를 사용하는 것은 인간이 지능을 확장하는 방식이다.</li></ul>
                 </div>
             </details>
         </div>
@@ -445,7 +511,7 @@
         <div class="timeline-item">
             <div class="timeline-dot"></div>
             <details>
-                <summary>Pre-AI:지능의 확장</summary>
+                <summary>Pre-AI: 지능의 확장</summary>
                 <div class="timeline-content">
                     <ul class="event-list"><li><strong>추상화</strong><br>실재하는 사물(물리적 세상)을 언어, 벽화, 기호(데이터)로 변환하여 처리함.</li><li><strong>인지적 도구</strong><br>뇌의 한계를 극복하기 위해 기억과 계산을 외부 물리적 매체(돌, 매듭, 주판)를 사용함.</li><li><strong>17세기 (파스칼 & 라이프니츠)</strong><br>기계식 계산기의 발명으로 인간의 사고 과정을 기계적으로 구현할 수 있다는 '기호주의'적 사상의 씨앗이 됨.</li></ul>
                 </div>
@@ -475,9 +541,69 @@
         <div class="timeline-item">
             <div class="timeline-dot"></div>
             <details>
+                <summary>1921: '로봇'의 어원</summary>
+                <div class="timeline-content">
+                    <ul class="event-list"><li><strong>R.U.R (Rossum's Universal Robots)</strong><br>카렐 차페크의 희곡에서 '로봇(Robot)'이라는 단어가 처음 사용됨. 체코어의 '강제 노동(robota)'에서 유래.</li></ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <details>
+                <summary>1939: 디지털 컴퓨팅의 시초</summary>
+                <div class="timeline-content">
+                    <ul class="event-list"><li><strong>ABC (Atanasoff-Berry Computer)</strong><br>이진법 사용, 메모리와 연산 장치의 분리 등 현대 컴퓨터 아키텍처의 기초가 된 초기 전자식 디지털 컴퓨터.</li></ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <details>
+                <summary>1943: 뇌와 계산의 연결</summary>
+                <div class="timeline-content">
+                    <ul class="event-list"><li><strong>맥컬록 & 피츠 (McCulloch & Pitts)</strong><br>뇌를 계산 시스템으로 해석한 논문 발표. 현대 신경망(Neural Network) 이론의 수학적 토대 마련.</li></ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <details>
+                <summary>1940s: 현대 컴퓨터의 탄생</summary>
+                <div class="timeline-content">
+                    <ul class="event-list"><li><strong>에니악 (ENIAC, 1946)</strong><br>최초의 범용 전자식 컴퓨터 등장. 진공관을 사용하여 이전의 기계식 장치와는 비교할 수 없는 계산 속도를 제공, AI 알고리즘이 구동될 수 있는 물리적 기반 마련.</li><li><strong>폰 노이만 구조 (Von Neumann Architecture)</strong><br>데이터와 프로그램을 메모리에 함께 저장하는 '프로그램 내장 방식' 확립. 하드웨어 변경 없이 소프트웨어 교체만으로 다른 작업을 수행할 수 있게 되어 현대적 의미의 프로그래밍이 가능해짐.</li></ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <details>
                 <summary>1948: AI의 전조</summary>
                 <div class="timeline-content">
-                    <ul class="event-list"><li><strong>노버트 위너(Norbert Wiener)</strong><br>동물과 기계의 통제 및 통신 이론인 Cybernetics 출간. 생물학적 뇌 구조를 기계적으로 모방하려는 1940년대의 시도로, 현대 AI 연구의 중요한 뿌리가 됨.</li></ul>
+                    <ul class="event-list"><li><strong>노버트 위너(Norbert Wiener)</strong><br>동물과 기계의 통제 및 통신 이론인 Cybernetics 출간. 생물학적 뇌 구조를 기계적으로 모방하려는 시도로, 현대 AI 연구의 이론적 뿌리가 됨.</li></ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <details>
+                <summary>1951: 최초의 신경망 기계</summary>
+                <div class="timeline-content">
+                    <ul class="event-list"><li><strong>SNARC</strong><br>마빈 민스키가 개발한 아날로그 신경망 계산기. 강화 학습을 통해 쥐가 미로를 찾는 행동을 모방.</li></ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <details>
+                <summary>1952: 자동화된 추론</summary>
+                <div class="timeline-content">
+                    <ul class="event-list"><li><strong>Logic Theorist</strong><br>앨런 뉴웰과 허버트 사이먼이 개발. 인간의 문제 해결 능력을 모방하여 수학적 정리를 증명한 초기 AI 프로그램.</li></ul>
                 </div>
             </details>
         </div>
@@ -508,6 +634,26 @@
                 <summary>1958: 신경망의 시초</summary>
                 <div class="timeline-content">
                     <ul class="event-list"><li><strong>프랭크 로젠블라트(Frank Rosenblatt)</strong><br>초기 인공신경망인 Perceptron 고안. 학습을 통해 기계가 패턴을 인식할 수 있는 가능성 제시.</li></ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <details>
+                <summary>1959: 머신러닝의 태동</summary>
+                <div class="timeline-content">
+                    <ul class="event-list"><li><strong>아서 사무엘 (Arthur Samuel)</strong><br>체커 게임 프로그램을 통해 기계가 명시적 프로그래밍 없이 경험을 통해 학습할 수 있음을 증명하고 '머신 러닝' 용어 창시.</li><li><strong>Pandemonium & Advice Taker</strong><br>올리버 셀프리지의 경쟁적 특징 인식 모델(Pandemonium)과 존 매카시의 상식 추론 시스템(Advice Taker) 제안.</li></ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <details>
+                <summary>1965: 전문가 시스템</summary>
+                <div class="timeline-content">
+                    <ul class="event-list"><li><strong>DENDRAL</strong><br>화학적 분석을 수행하는 최초의 전문가 시스템(Expert System). 특정 분야에서 인간 전문가 수준의 수행 능력 입증.</li></ul>
                 </div>
             </details>
         </div>
@@ -575,6 +721,16 @@
         <div class="timeline-item">
             <div class="timeline-dot"></div>
             <details>
+                <summary>1988: 확률론과 통계의 부상</summary>
+                <div class="timeline-content">
+                    <ul class="event-list"><li><strong>주데아 펄 (Judea Pearl)</strong><br>베이지안 네트워크(Bayesian Network)를 통해 불확실성 하에서의 확률적 추론 체계 정립.</li><li><strong>통계적 기계 번역</strong><br>IBM 연구진이 규칙 기반 대신 대량의 데이터(의사록)를 통한 통계적 패턴 학습 방식을 기계 번역에 도입.</li></ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <details>
                 <summary>1989: CNN의 기초</summary>
                 <div class="timeline-content">
                     <ul class="event-list"><li><strong>얀 르쿤(Yann LeCun)</strong><br>우편번호 판독을 위한 초기 합성곱 신경망 LeNet 개발. 현대 Computer Vision 및 Deep Learning 기술의 토대 마련.</li></ul>
@@ -585,9 +741,39 @@
         <div class="timeline-item">
             <div class="timeline-dot"></div>
             <details>
+                <summary>1993: 특이점 (Singularity)</summary>
+                <div class="timeline-content">
+                    <ul class="event-list"><li><strong>버너 빈지 (Vernor Vinge)</strong><br>AI가 인간 지능을 초월하여 문명을 근본적으로 변화시키는 '기술적 특이점' 개념을 대중화.</li></ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <details>
+                <summary>1997: RNN의 혁신</summary>
+                <div class="timeline-content">
+                    <ul class="event-list"><li><strong>LSTM (Long Short-Term Memory)</strong><br>기존 순환 신경망(RNN)의 장기 의존성 문제를 해결한 모델. 음성 인식, 시계열 예측 등의 기반이 됨.</li></ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <details>
                 <summary>1997: Deep Blue의 승리</summary>
                 <div class="timeline-content">
                     <ul class="event-list"><li><strong>IBM Deep Blue</strong><br>세계 체스 챔피언 가리 카스파로프(Garry Kasparov)에게 승리. 연산 능력에 기반한 '기호주의 AI'의 상징적 성과.</li></ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <details>
+                <summary>1998: CNN 최적화</summary>
+                <div class="timeline-content">
+                    <ul class="event-list"><li><strong>LeNet-5 최적화</strong><br>얀 르쿤과 요수아 벤지오가 역전파 알고리즘을 통해 CNN을 필기 인식에 효과적으로 적용하는 방법 정립.</li></ul>
                 </div>
             </details>
         </div>
@@ -628,6 +814,16 @@
                 <summary>2011: IBM Watson의 퀴즈 제패</summary>
                 <div class="timeline-content">
                     <ul class="event-list"><li><strong>IBM Watson</strong><br>퀴즈 쇼 'Jeopardy!'에서 인간 챔피언들을 꺾고 우승. 자연어 처리(NLP) 기술을 통해 인간의 언어를 이해하고 답하는 AI의 가능성을 대중에게 각인.</li></ul>
+                </div>
+            </details>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <details>
+                <summary>2012: 비지도 학습의 가능성</summary>
+                <div class="timeline-content">
+                    <ul class="event-list"><li><strong>Google Brain (Cat Experiment)</strong><br>앤드류 응과 제프 딘이 유튜브 영상에서 레이블 없이 고양이의 개념을 스스로 학습하는 거대 신경망 실험 성공.</li></ul>
                 </div>
             </details>
         </div>
@@ -717,7 +913,7 @@
             <details>
                 <summary>2022: 생성형 AI (GenAI) 대중화</summary>
                 <div class="timeline-content">
-                    <ul class="event-list"><li><strong>ChatGPT & Stable Diffusion</strong><br>대화형 인터페이스와 이미지 생성 모델을 통해 대중이 AI를 일상적으로 사용하는 계기 마련.</li></ul>
+                    <ul class="event-list"><li><strong>ChatGPT</strong><br>대화형 인터페이스와 언어 모델을 통해 대중이 AI를 일상적으로 사용하는 계기 마련.</li></ul>
                 </div>
             </details>
         </div>
