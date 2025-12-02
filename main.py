@@ -348,7 +348,7 @@ def process_translation(data_list, fields):
 def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content):
     now_kst = datetime.datetime.now(pytz.timezone('Asia/Seoul')).strftime('%Y-%m-%d %H:%M:%S')
     # [삭제 예정_START]
-    DEV_LOG_WIDGET = """
+    DEV_Note_WIDGET = """
     <style>
         .dev-btn {
             position: absolute; top: 15px; right: 20px;
@@ -393,7 +393,7 @@ def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content
         }
     </style>
 
-    <button class="dev-btn" onclick="document.getElementById('devModal').style.display='flex'">📝Dev Log</button>
+    <button class="dev-btn" onclick="document.getElementById('devModal').style.display='flex'">📝 Dev Note</button>
 
     <div id="devModal" class="dev-modal" onclick="if(event.target == this) this.style.display='none'">
         <div class="dev-modal-content">
@@ -571,7 +571,7 @@ def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content
     </head>
     <body>
         <!-- [삭제 예정_START] -->
-        {DEV_LOG_WIDGET}
+        {DEV_Note_WIDGET}
         <!-- [삭제 예정_END] -->
         
         <div class="container">
