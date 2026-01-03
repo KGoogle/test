@@ -20,8 +20,10 @@ if GOOGLE_API_KEY:
 
 RSS_SOURCES = {
     "Labs": {
-        "Google": "https://blog.google/technology/research/rss/",
+        "Google(DeepMind)": "https://blog.google/technology/research/rss/",
+        "Microsoft(MSR)": "https://www.microsoft.com/en-us/research/feed/",
         "OpenAI": "https://openai.com/news/rss.xml",
+        "NVIDIA": "https://blogs.nvidia.com/blog/category/generative-ai/feed/",
         "UC Berkeley(BAIR)": "https://bair.berkeley.edu/blog/feed.xml",
         "CMU(SCS)": "https://www.cs.cmu.edu/news/feed",
         "MIT(CSAIL)": "https://news.mit.edu/rss/topic/artificial-intelligence2"
@@ -30,7 +32,7 @@ RSS_SOURCES = {
         "AI 타임스": "https://cdn.aitimes.com/rss/gn_rss_allArticle.xml",
         "인공지능신문": "https://www.aitimes.kr/rss/S1N2.xml",
         "AI Matters": "https://aimatters.co.kr/category/news-report/ai-report/feed/",
-        "GeekNews": "https://feeds.feedburner.com/geeknews-feed"
+        "GeekNews(뉴스)": "https://feeds.feedburner.com/geeknews-feed"
     }
 }
 
@@ -45,7 +47,7 @@ CONFERENCE_LINKS = [
 OTHER_LINKS = [
     {"name": "Hugging Face", "url": "https://huggingface.co/", "desc": "The AI Community Building the Future"},
     {"name": "Kaggle", "url": "https://www.kaggle.com/", "desc": "Data Science Competitions"},
-    {"name": "Meta", "url": "https://ai.meta.com/research/", "desc": "RSS 제공 안함"},
+    {"name": "Meta(MSL)", "url": "https://ai.meta.com/research/", "desc": "RSS 제공 안함"},
     {"name": "Anthropic", "url": "https://www.anthropic.com/research", "desc": "RSS 제공 안함"},
     {"name": "xAI", "url": "https://x.ai/news", "desc": "RSS 제공 안함"},
     {"name": "Stanford(SAIL)", "url": "https://ai.stanford.edu/blog/", "desc": "RSS 제공 안함"},
