@@ -32,7 +32,7 @@ RSS_SOURCES = {
         "AI 타임스": "https://cdn.aitimes.com/rss/gn_rss_allArticle.xml",
         "인공지능신문": "https://www.aitimes.kr/rss/S1N2.xml",
         "AI Matters": "https://aimatters.co.kr/category/news-report/ai-report/feed/",
-        "GeekNews(뉴스)": "https://feeds.feedburner.com/geeknews-feed"
+        "GeekNews": "https://feeds.feedburner.com/geeknews-feed"
     }
 }
 
@@ -651,3 +651,4 @@ if __name__ == "__main__":
         f.write(html_out)
         
     print("index.html Generated Successfully.")
+
