@@ -545,7 +545,18 @@ def create_html(rss_data, paper_data, conf_links, other_links, knowledge_content
             .paper-badge {{ color: var(--accent); }} 
             
             .date {{ color: #666; font-family: monospace; }}
-            .card-title {{ display: block; font-size: 1.1rem; font-weight: 600; color: #fff; text-decoration: none; margin-bottom: 5px; word-break: keep-all; flex-grow: 1; }}
+            .card-title {{
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 5px;
+    
+    word-break: normal;
+    overflow-wrap: break-word;
+    line-height: 1.4;
+}}
             .card-title:hover {{ color: var(--accent); text-decoration: underline; }}
             .card-author {{ font-size: 0.85rem; color: #777; margin-bottom: 8px; font-style: italic; }}
             
