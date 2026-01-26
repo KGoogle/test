@@ -54,7 +54,7 @@ OTHER_LINKS = [
 ]
 
 SEARCH_QUERY = 'cat:cs.AI OR cat:cs.LG'
-MAX_ARXIV_RESULTS = 5
+MAX_ARXIV_RESULTS = 10
 MAX_NEWS_ITEMS = 5
 MAX_LABS_ITEMS = 3
 
@@ -234,13 +234,15 @@ def get_arxiv_papers():
             except:
                 pub_date = r.published.strftime("%Y-%m-%d")
             
+            clean_abstract = re.sub(r'\s+', ' ', r.summary).strip()
+            
             results.append({
                 "title": r.title.replace('\n', ' '),
                 "url": r.entry_id,
                 "date": pub_date,
                 "category": r.primary_category,
                 "authors": r.authors[0].name + (" et al." if len(r.authors)>1 else ""),
-                "abstract": r.summary.replace("\n", " ")
+                "abstract": clean_abstract
             })
     except Exception as e:
         print(f"ArXiv Error: {e}")
