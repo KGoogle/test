@@ -234,15 +234,13 @@ def get_arxiv_papers():
             except:
                 pub_date = r.published.strftime("%Y-%m-%d")
             
-            clean_abstract = re.sub(r'\s+', ' ', r.summary).strip()
-            
             results.append({
                 "title": r.title.replace('\n', ' '),
                 "url": r.entry_id,
                 "date": pub_date,
                 "category": r.primary_category,
                 "authors": r.authors[0].name + (" et al." if len(r.authors)>1 else ""),
-                "abstract": clean_abstract
+                "abstract": r.summary.replace("\n", " ")
             })
     except Exception as e:
         print(f"ArXiv Error: {e}")
