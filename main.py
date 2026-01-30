@@ -15,8 +15,8 @@ from google.generativeai.types import HarmCategory, HarmBlockThreshold
 #GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 #MODEL_NAME = 'gemini-2.5-flash-lite' 
 
-#if GOOGLE_API_KEY:
-#    genai.configure(api_key=GOOGLE_API_KEY)
+if GOOGLE_API_KEY:
+    genai.configure(api_key=GOOGLE_API_KEY)
 
 RSS_SOURCES = {
     "Labs": {
@@ -661,6 +661,7 @@ if __name__ == "__main__":
         f.write(html_out)
         
     print("index.html Generated Successfully.")
+
 
 
 
