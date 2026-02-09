@@ -46,6 +46,7 @@ CONFERENCE_LINKS = [
 OTHER_LINKS = [
     {"name": "Hugging Face", "url": "https://huggingface.co/", "desc": "The AI Community Building the Future"},
     {"name": "Kaggle", "url": "https://www.kaggle.com/", "desc": "Data Science Competitions"},
+    {"name": "Ollama", "url": "https://ollama.com/", "desc": "Easiest way to automate your work using open models"},
     {"name": "Meta(MSL)", "url": "https://ai.meta.com/research/", "desc": "RSS 제공 안함"},
     {"name": "Anthropic", "url": "https://www.anthropic.com/research", "desc": "RSS 제공 안함"},
     {"name": "xAI", "url": "https://x.ai/news", "desc": "RSS 제공 안함"},
@@ -661,6 +662,7 @@ if __name__ == "__main__":
         f.write(html_out)
         
     print("index.html Generated Successfully.")
+
 
 
 
